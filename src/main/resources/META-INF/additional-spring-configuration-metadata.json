@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "file.path",
+      "type": "java.lang.String",
+      "description": "Description for file.path."
+    },
+    {
+      "name": "card.path",
+      "type": "java.lang.String",
+      "description": "Description for card.path."
+    },
+    {
+      "name": "template.path",
+      "type": "java.lang.String",
+      "description": "Description for template.path."
+    }
+  ] }
