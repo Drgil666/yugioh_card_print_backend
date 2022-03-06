@@ -34,16 +34,18 @@ public class CardPrintController {
     @ApiOperation (value = "下载文件")
     public void downloadFile (HttpServletResponse response) throws IOException {
         String fileName = "D://card_print_test/test.docx";
+        int width = 223;
+        int height = 348;
         XWPFTemplate template = XWPFTemplate.compile (fileName).render (new HashMap<String, Object> (10) {{
-            put ("image1",Pictures.ofLocal ("D://card_print_test/111.png").size (217,332).create ());
-            put ("image2",Pictures.ofLocal ("D://card_print_test/111.png").size (217,332).create ());
-            put ("image3",Pictures.ofLocal ("D://card_print_test/111.png").size (217,332).create ());
-            put ("image4",Pictures.ofLocal ("D://card_print_test/111.png").size (217,332).create ());
-            put ("image5",Pictures.ofLocal ("D://card_print_test/111.png").size (217,332).create ());
-            put ("image6",Pictures.ofLocal ("D://card_print_test/111.png").size (217,332).create ());
-            put ("image7",Pictures.ofLocal ("D://card_print_test/111.png").size (217,332).create ());
-            put ("image8",Pictures.ofLocal ("D://card_print_test/111.png").size (217,332).create ());
-            put ("image9",Pictures.ofLocal ("D://card_print_test/111.png").size (217,332).create ());
+            put ("image1",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
+            put ("image2",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
+            put ("image3",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
+            put ("image4",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
+            put ("image5",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
+            put ("image6",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
+            put ("image7",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
+            put ("image8",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
+            put ("image9",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
         }});
         response.setContentType ("application/octet-stream");
         response.setHeader ("Content-disposition","attachment;filename=\"" + UUID.randomUUID () + ".docx" + "\"");
