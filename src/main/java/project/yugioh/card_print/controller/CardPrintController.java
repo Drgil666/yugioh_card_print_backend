@@ -36,8 +36,12 @@ public class CardPrintController {
     private String filePath;
     @Value ("${card.path}")
     private String cardPath;
-    @Value ("template.path")
+    @Value ("${template.path}")
     private String templatePath;
+    @Value ("${export.path}")
+    private String exportPath;
+    @Value ("${export.name}")
+    private String exportFileName;
     @ResponseBody
     @GetMapping ("/download")
     @ApiOperation (value = "下载文件")
@@ -54,33 +58,17 @@ public class CardPrintController {
                 }
             }
         }
-        String fileName = "output";
+        log.debug ("文件个数:" + cardFileList.size ());
+        cardPrintService.createTemplate (cardFileList.size ());
         int width = 223;
         int height = 325;
         XWPFTemplate template = XWPFTemplate.compile (templatePath).render (new HashMap<String, Object> (10) {{
-            for(int i=0;i<cardFileList.size ();i++){
-                put ("image"+(i+1),Pictures.ofLocal (cardPath+"/"+ cardFileList.get (i)).size (width,height).create ());
+            for (int i = 0;i < cardFileList.size ();i++) {
+                put ("image" + (i + 1),Pictures.ofLocal (cardPath + "/" + cardFileList.get (i)).size (width,height).create ());
             }
-//            put ("image1",Pictures.ofLocal ("D://card_print_test/阿拉弥赛亚之仪.png").size (width,height).create ());
-//            put ("image2",Pictures.ofLocal ("D://card_print_test/阿拉弥赛亚之仪.png").size (width,height).create ());
-//            put ("image3",Pictures.ofLocal ("D://card_print_test/红色重启.png").size (width,height).create ());
-//            put ("image4",Pictures.ofLocal ("D://card_print_test/连接蜘蛛.png").size (width,height).create ());
-//            put ("image5",Pictures.ofLocal ("D://card_print_test/流离的狮鹫骑手.png").size (width,height).create ());
-//            put ("image6",Pictures.ofLocal ("D://card_print_test/命运之旅路.png").size (width,height).create ());
-//            put ("image7",Pictures.ofLocal ("D://card_print_test/骑龙 驮龙.png").size (width,height).create ());
-//            put ("image8",Pictures.ofLocal ("D://card_print_test/圣殿的水遣.png").size (width,height).create ());
-//            put ("image9",Pictures.ofLocal ("D://card_print_test/圣殿的水遣.png").size (width,height).create ());
-//            put ("image10",Pictures.ofLocal ("D://card_print_test/无限泡影.png").size (width,height).create ());
-//            put ("image11",Pictures.ofLocal ("D://card_print_test/效果遮蒙者.png").size (width,height).create ());
-//            put ("image12",Pictures.ofLocal ("D://card_print_test/效果遮蒙者.png").size (width,height).create ());
-//            put ("image13",Pictures.ofLocal ("D://card_print_test/效果遮蒙者.png").size (width,height).create ());
-//            put ("image14",Pictures.ofLocal ("D://card_print_test/衍生物收集者.png").size (width,height).create ());
-//            put ("image15",Pictures.ofLocal ("D://card_print_test/原始生命态 尼比鲁.png").size (width,height).create ());
-//            put ("image16",Pictures.ofLocal ("D://card_print_test/原始生命态 尼比鲁.png").size (width,height).create ());
-//            put ("image17",Pictures.ofLocal ("D://card_print_test/原始生命态衍生物.png").size (width,height).create ());
         }});
         response.setContentType ("application/octet-stream");
-        response.setHeader ("Content-disposition","attachment;filename=\"" + fileName + ".docx" + "\"");
+        response.setHeader ("Content-disposition","attachment;filename=\"" + exportFileName + "\"");
         OutputStream out = response.getOutputStream ();
         BufferedOutputStream bos = new BufferedOutputStream (out);
         template.writeAndClose (bos);

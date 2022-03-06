@@ -14,5 +14,15 @@
       "name": "template.path",
       "type": "java.lang.String",
       "description": "Description for template.path."
+    },
+    {
+      "name": "export.path",
+      "type": "java.lang.String",
+      "description": "Description for export.path."
+    },
+    {
+      "name": "export.name",
+      "type": "java.lang.String",
+      "description": "Description for export.name."
     }
   ] }
