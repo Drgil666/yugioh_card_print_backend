@@ -17,7 +17,6 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.UUID;
 /**
  * @author Gilbert
  * @date 2022/3/6 16:56
@@ -33,10 +32,11 @@ public class CardPrintController {
     @GetMapping ("/download")
     @ApiOperation (value = "下载文件")
     public void downloadFile (HttpServletResponse response) throws IOException {
-        String fileName = "D://card_print_test/test.docx";
+        String filePath = "D://card_print_test/test.docx";
+        String fileName = "output";
         int width = 223;
-        int height = 348;
-        XWPFTemplate template = XWPFTemplate.compile (fileName).render (new HashMap<String, Object> (10) {{
+        int height = 325;
+        XWPFTemplate template = XWPFTemplate.compile (filePath).render (new HashMap<String, Object> (10) {{
             put ("image1",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
             put ("image2",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
             put ("image3",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
@@ -48,7 +48,7 @@ public class CardPrintController {
             put ("image9",Pictures.ofLocal ("D://card_print_test/111.png").size (width,height).create ());
         }});
         response.setContentType ("application/octet-stream");
-        response.setHeader ("Content-disposition","attachment;filename=\"" + UUID.randomUUID () + ".docx" + "\"");
+        response.setHeader ("Content-disposition","attachment;filename=\"" + fileName + ".docx" + "\"");
         OutputStream out = response.getOutputStream ();
         BufferedOutputStream bos = new BufferedOutputStream (out);
         template.writeAndClose (bos);
