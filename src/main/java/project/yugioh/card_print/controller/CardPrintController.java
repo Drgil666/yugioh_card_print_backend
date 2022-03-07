@@ -2,14 +2,10 @@ package project.yugioh.card_print.controller;
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.data.Pictures;
 import com.deepoove.poi.util.PoitlIOUtils;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import project.yugioh.card_print.service.CardPrintService;
 
 import javax.annotation.Resource;
@@ -28,7 +24,7 @@ import java.util.List;
 @Controller
 @Slf4j
 @CrossOrigin (origins = "*")
-@RequestMapping ("/api/test")
+@RequestMapping ("/api/file")
 public class CardPrintController {
     @Resource
     private CardPrintService cardPrintService;
@@ -42,9 +38,15 @@ public class CardPrintController {
     private String exportPath;
     @Value ("${export.name}")
     private String exportFileName;
+
+    @ResponseBody
+    @PostMapping("/upload")
+    public void uploadFile (HttpServletResponse response) throws IOException {
+        log.debug("upload!");
+    }
+
     @ResponseBody
     @GetMapping ("/download")
-    @ApiOperation (value = "下载文件")
     public void downloadFile (HttpServletResponse response) throws IOException {
         String[] imageSuffix = {".png",".jpg",".jpeg"};
         File desktop = new File (cardPath);
