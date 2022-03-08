@@ -38,16 +38,16 @@ public class CardPrintServiceImpl implements CardPrintService {
         pageMar.setRight(BigInteger.valueOf(RIGHT_MARGIN));
         pageMar.setTop(BigInteger.valueOf(TOP_MARGIN));
         pageMar.setBottom(BigInteger.valueOf(BOTTOM_MARGIN));
-        //设置边距
+        // 设置边距
         // 新建段落
         paragraph.setAlignment(ParagraphAlignment.LEFT);
         // 设置左对齐
-        for (int i = 1; i <= size / 3; i++) {
+        for (int i = 1; i <= Math.ceil(size / 3.0); i++) {
             XWPFRun run = paragraph.createRun();
             //创建段落文本
             run.setText("{{@image" + (3 * (i - 1) + 1) + "}}  {{@image" + (3 * (i - 1) + 2) + "}}  {{@image" + (3 * (i - 1) + 3) + "}}");
             run.addBreak(BreakType.TEXT_WRAPPING);
-            if (i != size / 3) {
+            if (i % 3 != 0 && i != Math.ceil(size / 3.0)) {
                 run.addBreak(BreakType.TEXT_WRAPPING);
             }
         }

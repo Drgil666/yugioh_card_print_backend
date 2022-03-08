@@ -1,4 +1,5 @@
 package project.yugioh.card_print.controller;
+
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.data.Pictures;
 import com.deepoove.poi.util.PoitlIOUtils;
@@ -17,65 +18,67 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 /**
  * @author Gilbert
  * @date 2022/3/6 16:56
  */
 @Controller
 @Slf4j
-@CrossOrigin (origins = "*")
-@RequestMapping ("/api/file")
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/file")
 public class CardPrintController {
     @Resource
     private CardPrintService cardPrintService;
-    @Value ("${file.path}")
+    @Value("${file.path}")
     private String filePath;
-    @Value ("${card.path}")
+    @Value("${card.path}")
     private String cardPath;
-    @Value ("${template.path}")
+    @Value("${template.path}")
     private String templatePath;
-    @Value ("${export.path}")
+    @Value("${export.path}")
     private String exportPath;
-    @Value ("${export.name}")
+    @Value("${export.name}")
     private String exportFileName;
 
     @ResponseBody
     @PostMapping("/upload")
-    public void uploadFile (HttpServletResponse response) throws IOException {
+    public void uploadFile(HttpServletResponse response) throws IOException {
         log.debug("upload!");
     }
 
     @ResponseBody
-    @GetMapping ("/download")
-    public void downloadFile (HttpServletResponse response) throws IOException {
-        String[] imageSuffix = {".png",".jpg",".jpeg"};
-        File desktop = new File (cardPath);
-        String[] arr = desktop.list ();
-        List<String> cardFileList = new ArrayList<> ();
+    @GetMapping("/download")
+    public void downloadFile(HttpServletResponse response) throws IOException {
+        String[] imageSuffix = {".png", ".jpg", ".jpeg"};
+        File desktop = new File(cardPath);
+        String[] arr = desktop.list();
+        List<String> cardFileList = new ArrayList<>();
         for (String fileName : arr) {
             for (String suffix : imageSuffix) {
-                if (fileName.endsWith (suffix)) {
-                    cardFileList.add (fileName);
+                if (fileName.endsWith(suffix)) {
+                    cardFileList.add(fileName);
                     break;
                 }
             }
         }
-        log.debug ("文件个数:" + cardFileList.size ());
-        cardPrintService.createTemplate (cardFileList.size ());
+        cardPrintService.createTemplate(cardFileList.size());
         int width = 223;
         int height = 325;
-        XWPFTemplate template = XWPFTemplate.compile (templatePath).render (new HashMap<String, Object> (10) {{
-            for (int i = 0;i < cardFileList.size ();i++) {
-                put ("image" + (i + 1),Pictures.ofLocal (cardPath + "/" + cardFileList.get (i)).size (width,height).create ());
+        XWPFTemplate template = XWPFTemplate.compile(templatePath).render(new HashMap<String, Object>(10) {{
+            for (int i = 0; i < cardFileList.size(); i++) {
+                put("image" + (i + 1), Pictures.ofLocal(cardPath + "/" + cardFileList.get(i)).size(width, height).create());
             }
         }});
-        response.setContentType ("application/octet-stream");
-        response.setHeader ("Content-disposition","attachment;filename=\"" + exportFileName + "\"");
-        OutputStream out = response.getOutputStream ();
-        BufferedOutputStream bos = new BufferedOutputStream (out);
-        template.writeAndClose (bos);
-        bos.flush ();
-        out.flush ();
-        PoitlIOUtils.closeQuietlyMulti (template,bos,out);
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-disposition", "attachment;filename=\"" + exportFileName + "\"");
+        OutputStream out = response.getOutputStream();
+        BufferedOutputStream bos = new BufferedOutputStream(out);
+        template.writeAndClose(bos);
+        bos.flush();
+        out.flush();
+        PoitlIOUtils.closeQuietlyMulti(template, bos, out);
+        log.debug("总文件个数:" + arr.length);
+        log.debug("文件个数:" + cardFileList.size());
     }
 }

@@ -1,4 +1,5 @@
 package project.yugioh.card_print.service;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,8 +8,6 @@ import project.yugioh.card_print.CardPrintApplication;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-
-import static org.junit.Assert.*;
 /**
  * @author Gilbert
  * @date 2022/3/6 22:20
@@ -20,6 +19,6 @@ public class CardPrintServiceImplTest {
     private CardPrintService cardPrintService;
     @Test
     public void createTemplate () throws IOException {
-        cardPrintService.createTemplate (15);
+        cardPrintService.createTemplate(36);
     }
 }
