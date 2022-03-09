@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigInteger;
 
 /**
@@ -30,9 +31,9 @@ public class CardPrintServiceImpl implements CardPrintService {
      */
     @Override
     public void createTemplate(Integer size) throws IOException {
-        XWPFDocument doc = new XWPFDocument();
-        XWPFParagraph paragraph = doc.createParagraph();
-        CTSectPr sectPr = doc.getDocument().getBody().addNewSectPr();
+        XWPFDocument document = new XWPFDocument();
+        XWPFParagraph paragraph = document.createParagraph();
+        CTSectPr sectPr = document.getDocument().getBody().addNewSectPr();
         CTPageMar pageMar = sectPr.addNewPgMar();
         pageMar.setLeft(BigInteger.valueOf(LEFT_MARGIN));
         pageMar.setRight(BigInteger.valueOf(RIGHT_MARGIN));
@@ -51,9 +52,9 @@ public class CardPrintServiceImpl implements CardPrintService {
                 run.addBreak(BreakType.TEXT_WRAPPING);
             }
         }
-        FileOutputStream out = new FileOutputStream(templateFileName);
+        OutputStream out = new FileOutputStream(templateFileName);
         //生成文件
-        doc.write(out);
+        document.write(out);
         out.close();
     }
 }

@@ -50,7 +50,7 @@ public class CardPrintController {
     @ResponseBody
     @GetMapping("/download")
     public void downloadFile(HttpServletResponse response) throws IOException {
-        String[] imageSuffix = {".png", ".jpg", ".jpeg"};
+        String[] imageSuffix = {".emf", ".wmf", ".pict", ".jpeg", ".png", ".dib", ".gif", ".tiff", ".eps", ".bmp", ".wpg"};
         File desktop = new File(cardPath);
         String[] arr = desktop.list();
         List<String> cardFileList = new ArrayList<>();
