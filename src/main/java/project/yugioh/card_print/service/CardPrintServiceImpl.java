@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigInteger;
 
 /**
  * @author Gilbert
@@ -35,10 +34,10 @@ public class CardPrintServiceImpl implements CardPrintService {
         XWPFParagraph paragraph = document.createParagraph();
         CTSectPr sectPr = document.getDocument().getBody().addNewSectPr();
         CTPageMar pageMar = sectPr.addNewPgMar();
-        pageMar.setLeft(BigInteger.valueOf(LEFT_MARGIN));
-        pageMar.setRight(BigInteger.valueOf(RIGHT_MARGIN));
-        pageMar.setTop(BigInteger.valueOf(TOP_MARGIN));
-        pageMar.setBottom(BigInteger.valueOf(BOTTOM_MARGIN));
+        pageMar.setLeft(LEFT_MARGIN);
+        pageMar.setRight(RIGHT_MARGIN);
+        pageMar.setTop(TOP_MARGIN);
+        pageMar.setBottom(BOTTOM_MARGIN);
         // 设置边距
         // 新建段落
         paragraph.setAlignment(ParagraphAlignment.LEFT);
