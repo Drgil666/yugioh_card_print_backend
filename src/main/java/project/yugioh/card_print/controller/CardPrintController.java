@@ -50,7 +50,7 @@ public class CardPrintController {
     @ResponseBody
     @GetMapping("/download")
     public void downloadFile(HttpServletResponse response) throws IOException {
-        String[] imageSuffix = {".emf", ".wmf", ".pict", ".jpeg", ".png", ".dib", ".gif", ".tiff", ".eps", ".bmp", ".wpg"};
+        String[] imageSuffix = {".emf", ".wmf", ".pict", ".jpeg", ".png", ".dib", ".gif", ".tiff", ".eps", ".bmp", ".wpg",".jpg"};
         File desktop = new File(cardPath);
         String[] arr = desktop.list();
         List<String> cardFileList = new ArrayList<>();
@@ -63,15 +63,16 @@ public class CardPrintController {
             }
         }
         cardPrintService.createTemplate(cardFileList.size());
-        int width = 223;
-        int height = 325;
+        int width = 225;
+        int height = 328;
         XWPFTemplate template = XWPFTemplate.compile(templatePath).render(new HashMap<String, Object>(10) {{
             for (int i = 0; i < cardFileList.size(); i++) {
                 put("image" + (i + 1), Pictures.ofLocal(cardPath + "/" + cardFileList.get(i)).size(width, height).create());
             }
         }});
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-disposition", "attachment;filename=\"" + exportFileName + "\"");
+        response.setHeader("content-type", "application/octet-stream");
+        response.setHeader("content-disposition", "attachment;filename=\"" + exportFileName + "\"");
         OutputStream out = response.getOutputStream();
         BufferedOutputStream bos = new BufferedOutputStream(out);
         template.writeAndClose(bos);

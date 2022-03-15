@@ -21,7 +21,7 @@ public class CardPrintServiceImpl implements CardPrintService {
     private static final long LEFT_MARGIN = 568L;
     private static final long RIGHT_MARGIN = 568L;
     private static final long TOP_MARGIN = 284L;
-    private static final long BOTTOM_MARGIN = 284L;
+    private static final long BOTTOM_MARGIN = 114L;
 
     /**
      * 创建模板文件
