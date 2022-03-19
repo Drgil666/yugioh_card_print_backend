@@ -7,7 +7,7 @@ import project.yugioh.card_print.pojo.vo.CardDb;
  * @author Gilbert
  * @date 2022/3/19 16:41
  */
-public class CardUtil {
+public class CardTransformUtil {
     public static Card cardTransform(CardDb cardDb) {
         Card card = new Card();
         card.setCode(cardDb.getId());
@@ -28,7 +28,7 @@ public class CardUtil {
         card.setTcgLimit(3);
         //TODO:禁卡表数量需要手动修改，种族效果属性等也需要代码修正
         if(card.getBriefDescription()!=null){
-
+            String description=card.getBriefDescription();
         }
         if (cardDb.getData() != null) {
             if (cardDb.getData().getAtk() != null) {

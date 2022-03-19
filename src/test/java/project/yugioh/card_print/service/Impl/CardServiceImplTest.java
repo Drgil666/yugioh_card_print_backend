@@ -10,7 +10,7 @@ import project.yugioh.card_print.CardPrintApplication;
 import project.yugioh.card_print.pojo.Card;
 import project.yugioh.card_print.pojo.vo.CardDb;
 import project.yugioh.card_print.service.CardService;
-import project.yugioh.card_print.util.CardUtil;
+import project.yugioh.card_print.util.CardTransformUtil;
 
 import javax.annotation.Resource;
 import java.io.BufferedReader;
@@ -52,7 +52,7 @@ public class CardServiceImplTest {
         for (HashMap.Entry<String, CardDb> entry : cardList.entrySet()) {
             CardDb cardDb = entry.getValue();
             //System.out.println(entry.getKey());
-            Card card= CardUtil.cardTransform(cardDb);
+            Card card= CardTransformUtil.cardTransform(cardDb);
             cardService.createCard(card);
         }
         System.out.println("读取完成!" + cardList.size());
