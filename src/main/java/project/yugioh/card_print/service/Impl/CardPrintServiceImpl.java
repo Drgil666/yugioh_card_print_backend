@@ -1,14 +1,18 @@
-package project.yugioh.card_print.service;
+package project.yugioh.card_print.service.Impl;
 
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageSz;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STPageOrientation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import project.yugioh.card_print.service.CardPrintService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigInteger;
 
 /**
  * @author Gilbert

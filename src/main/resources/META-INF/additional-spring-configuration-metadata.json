@@ -24,5 +24,25 @@
       "name": "export.name",
       "type": "java.lang.String",
       "description": "Description for export.name."
+    },
+    {
+      "name": "token.validity",
+      "type": "java.lang.String",
+      "description": "Description for token.validity."
+    },
+    {
+      "name": "databaseName",
+      "type": "java.lang.String",
+      "description": "Description for databaseName."
+    },
+    {
+      "name": "domainUrl",
+      "type": "java.lang.String",
+      "description": "Description for domainUrl."
+    },
+    {
+      "name": "grid.fs.database",
+      "type": "java.lang.String",
+      "description": "Description for grid.fs.database."
     }
   ] }
