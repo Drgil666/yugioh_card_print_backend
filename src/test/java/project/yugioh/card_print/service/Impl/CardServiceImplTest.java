@@ -31,7 +31,9 @@ public class CardServiceImplTest {
 
     @Test
     public void createCard() {
-        File file = new File("C:/Users/25741/Desktop/cards.json");
+        // File file = new File("C:/Users/25741/Desktop/cards.json");
+        // File file = new File("Y:/Users/DrGilbert/Desktop/cards.json");
+        File file = new File("../java/project/yugioh/card_print/cardData/cards.json");
         StringBuilder stringBuilder = new StringBuilder();
         int cnt = 0;
         try {

@@ -33,13 +33,36 @@ public class CardInfoUtil {
     private static final String FIELD_ATTRIBUTE = "场地";
     private static final String TRAP_ATTRIBUTE = "陷阱";
     private static final String COUNTER_ATTRIBUTE = "反击";
-    private static final String GOD_ATTRIBUTE = "神";
+    public static final CardRace[] CARD_RACE_LIST = CardRace.values();
     private static final String DARK_ATTRIBUTE = "暗";
     private static final String EARTH_ATTRIBUTE = "地";
     private static final String LIGHT_ATTRIBUTE = "光";
-    private static final String FLAME_ATTRIBUTE = "炎";
-    private static final String AQUA_ATTRIBUTE = "水";
+    public static final HashMap<String, Integer> CARD_RACE_MAP = getCardRaceMap();
+    private static final String DIVINE_ATTRIBUTE = "神";
     private static final String WIND_ATTRIBUTE = "风";
+    private static final String FIRE_ATTRIBUTE = "炎";
+    private static final String WATER_ATTRIBUTE = "水";
+    private static final String AQUA_ATTRIBUTE = "水";
+    private static final String BEAST_ATTRIBUTE = "兽";
+    private static final String BEAST_WARRIOR_ATTRIBUTE = "兽战士";
+    private static final String CREATOR_GOD_ATTRIBUTE = "创造神";
+    private static final String CYBERSE_ATTRIBUTE = "电子界";
+    private static final String DINOSAUR_ATTRIBUTE = "恐龙";
+    private static final String DIVINE_BEAST_ATTRIBUTE = "幻神兽";
+    private static final String DRAGON_ATTRIBUTE = "龙";
+    private static final String FAIRY_ATTRIBUTE = "天使";
+    private static final String FISH_ATTRIBUTE = "鱼";
+    private static final String INSECT_ATTRIBUTE = "昆虫";
+    private static final String MACHINE_ATTRIBUTE = "机械";
+    private static final String PSYCHIC_ATTRIBUTE = "念动力";
+    private static final String PYRO_ATTRIBUTE = "炎";
+    private static final String REPTILE_ATTRIBUTE = "爬虫";
+    private static final String ROCK_ATTRIBUTE = "岩石";
+    private static final String SEA_SERPENT_ATTRIBUTE = "海龙";
+    private static final String SPELL_CASTER_ATTRIBUTE = "魔法师";
+    private static final String THUNDER_ATTRIBUTE = "雷";
+    private static final String WARRIOR_ATTRIBUTE = "战士";
+    private static final String WINGED_BEAST_ATTRIBUTE = "鸟兽";
 
     @AllArgsConstructor
     @Getter
@@ -140,45 +163,28 @@ public class CardInfoUtil {
         private final String name;
     }
 
-    @AllArgsConstructor
-    @Getter
-    public enum CardAttribute {
-        /**
-         * 神属性
-         */
-        TYPE_GOD(1, GOD_ATTRIBUTE),
-        /**
-         * 暗属性
-         */
-        TYPE_DARK(2, DARK_ATTRIBUTE),
-        /**
-         * 地属性
-         */
-        TYPE_EARTH(3, EARTH_ATTRIBUTE),
-        /**
-         * 光属性
-         */
-        TYPE_LIGHT(4, LIGHT_ATTRIBUTE),
-        /**
-         * 火属性
-         */
-        TYPE_FLAME(5, FLAME_ATTRIBUTE),
-        /**
-         * 水属性
-         */
-        TYPE_AQUA(6, AQUA_ATTRIBUTE),
-        /**
-         * 风属性
-         */
-        TYPE_WIND(7, WIND_ATTRIBUTE);
-        private final int code;
-        private final String name;
-        }
+    private static final String WYRM_ATTRIBUTE = "幻龙";
+    private static final String ZOMBIE_ATTRIBUTE = "不死";
 
     public static final CardType[] CARD_TYPE_LIST = CardType.values();
     public static final HashMap<String, Character> CARD_TYPE_MAP = getCardTypeMap();
     public static final CardAttribute[] CARD_ATTRIBUTE_LIST = CardAttribute.values();
     public static final HashMap<String, Integer> CARD_ATTRIBUTE_MAP = getCardAttributeMap();
+
+    public static HashMap<String, Integer> getCardRaceMap() {
+        HashMap<String, Integer> hashMap = new HashMap<>(10);
+        for (CardRace cardRace : CARD_RACE_LIST) {
+            hashMap.put(cardRace.name, cardRace.code);
+        }
+        return hashMap;
+    }
+
+    public static Integer getCardRaceByName(String name) {
+        if (CARD_RACE_MAP.containsKey(name)) {
+            return CARD_RACE_MAP.get(name);
+        }
+        return null;
+    }
 
     public static HashMap<String, Character> getCardTypeMap() {
         HashMap<String, Character> hashMap = new HashMap<>(10);
@@ -196,6 +202,40 @@ public class CardInfoUtil {
         return hashMap;
     }
 
+    @AllArgsConstructor
+    @Getter
+    public enum CardAttribute {
+        /**
+         * 神属性
+         */
+        TYPE_GOD(1, DIVINE_ATTRIBUTE),
+        /**
+         * 暗属性
+         */
+        TYPE_DARK(2, DARK_ATTRIBUTE),
+        /**
+         * 地属性
+         */
+        TYPE_EARTH(3, EARTH_ATTRIBUTE),
+        /**
+         * 光属性
+         */
+        TYPE_LIGHT(4, LIGHT_ATTRIBUTE),
+        /**
+         * 火属性
+         */
+        TYPE_FLAME(5, FIRE_ATTRIBUTE),
+        /**
+         * 水属性
+         */
+        TYPE_AQUA(6, WATER_ATTRIBUTE),
+        /**
+         * 风属性
+         */
+        TYPE_WIND(7, WIND_ATTRIBUTE);
+        private final int code;
+        private final String name;
+    }
 
     public static Character getCardTypeByName(String name) {
         if (CARD_TYPE_MAP.containsKey(name)) {
@@ -209,5 +249,105 @@ public class CardInfoUtil {
             return CARD_ATTRIBUTE_MAP.get(name);
         }
         return null;
+    }
+
+
+    @AllArgsConstructor
+    @Getter
+    public enum CardRace {
+        /**
+         * 水族
+         */
+        TYPE_AQUA(1, AQUA_ATTRIBUTE),
+        /**
+         * 兽族
+         */
+        TYPE_BEAST(2, BEAST_ATTRIBUTE),
+        /**
+         * 兽战士族
+         */
+        TYPE_BEAST_WARRIOR(3, BEAST_WARRIOR_ATTRIBUTE),
+        /**
+         * 创造神族
+         */
+        TYPE_CREATOR_GOD(4, CREATOR_GOD_ATTRIBUTE),
+        /**
+         * 电子界族
+         */
+        TYPE_CYBERSE(5, CYBERSE_ATTRIBUTE),
+        /**
+         * 恐龙族
+         */
+        TYPE_DINOSAUR(6, DINOSAUR_ATTRIBUTE),
+        /**
+         * 幻神兽族
+         */
+        TYPE_DIVINE_BEAST(7, DIVINE_BEAST_ATTRIBUTE),
+        /**
+         * 龙族
+         */
+        TYPE_DRAGON(8, DRAGON_ATTRIBUTE),
+        /**
+         * 天使族
+         */
+        TYPE_FAIRY(9, FAIRY_ATTRIBUTE),
+        /**
+         * 鱼族
+         */
+        TYPE_FISH(10, FISH_ATTRIBUTE),
+        /**
+         * 昆虫族
+         */
+        TYPE_INSECT(11, INSECT_ATTRIBUTE),
+        /**
+         * 机械族
+         */
+        TYPE_MACHINE(12, MACHINE_ATTRIBUTE),
+        /**
+         * 念动力族
+         */
+        TYPE_PSYCHIC(13, PSYCHIC_ATTRIBUTE),
+        /**
+         * 炎族
+         */
+        TYPE_PYRO(14, PYRO_ATTRIBUTE),
+        /**
+         * 爬虫族
+         */
+        TYPE_REPTILE(15, REPTILE_ATTRIBUTE),
+        /**
+         * 岩石族
+         */
+        TYPE_ROCK(16, ROCK_ATTRIBUTE),
+        /**
+         * 海龙族
+         */
+        TYPE_SEA_SERPENT(17, SEA_SERPENT_ATTRIBUTE),
+        /**
+         * 魔法师族
+         */
+        TYPE_SPELL_CASTER(18, SPELL_CASTER_ATTRIBUTE),
+        /**
+         * 雷族
+         */
+        TYPE_THUNDER(19, THUNDER_ATTRIBUTE),
+        /**
+         * 战士族
+         */
+        TYPE_WARRIOR(20, WARRIOR_ATTRIBUTE),
+        /**
+         * 鸟兽族
+         */
+        TYPE_WINGED_BEAST(21, WINGED_BEAST_ATTRIBUTE),
+        /**
+         * 幻龙族
+         */
+        TYPE_WYRM(22, WYRM_ATTRIBUTE),
+        /**
+         * 不死族
+         */
+        TYPE_ZOMBIE(23, ZOMBIE_ATTRIBUTE);
+        private final int code;
+        private final String name;
     }
 }

@@ -39,7 +39,7 @@ public class Card {
     /**
      * 卡片类型
      */
-    private Integer type;
+    private String type;
     /**
      * 卡片效果描述
      */

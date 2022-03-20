@@ -3,6 +3,10 @@ package project.yugioh.card_print.util;
 import project.yugioh.card_print.pojo.Card;
 import project.yugioh.card_print.pojo.vo.CardDb;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Gilbert
  * @date 2022/3/19 16:41
@@ -27,25 +31,46 @@ public class CardTransformUtil {
         card.setOcgLimit(3);
         card.setTcgLimit(3);
         //TODO:禁卡表数量需要手动修改，种族效果属性等也需要代码修正
-        if(card.getBriefDescription()!=null){
-            String description=card.getBriefDescription();
-            int quote1Left=0;int quote1Right=0;
+        if (card.getBriefDescription() != null) {
+            String description = card.getBriefDescription();
+            int quote1Left = 0;
+            int quote1Right = 0;
             //第一个括号的位置
-            for(int i=1;i<description.length();i++){
-                if(description.charAt(i)==']'){
-                    quote1Right=i;
+            for (int i = 1; i < description.length(); i++) {
+                if (description.charAt(i) == ']') {
+                    quote1Right = i;
                     break;
                 }
             }
-            String quote1=description.substring(quote1Left+1,quote1Right-1);
-            String[] firstQuotes=quote1.split("\\|");
-            if(firstQuotes[0].equals(CardInfoUtil.CardType.TYPE_MONSTER.getName())){
-                //TODO:待补充
-            }else if(firstQuotes[0].equals(CardInfoUtil.CardType.TYPE_MAGIC.getName()){
-
-            }else if(firstQuotes[0].equals(CardInfoUtil.CardType.TYPE_TRAP.getName()){
-
+            if (quote1Left + 1 <= quote1Right) {
+                String quote1 = description.substring(quote1Left + 1, quote1Right);
+                String[] cardTypes = quote1.split("\\|");
+                List<Character> card_type = new ArrayList<>();
+                for (String type : cardTypes) {
+                    Character character = CardInfoUtil.getCardTypeByName(type);
+                    if (character == null) {
+                        System.out.println("出现未知字段：" + type);
+                    } else {
+                        card_type.add(character);
+                    }
+                    Collections.sort(card_type);
+                    String temp = "";
+                    for (Character character1 : card_type) {
+                        temp += character1;
+                    }
+                    card.setType(temp);
+                }
+            } else {
+                System.out.println("出现异常!" + card.getCode() + " " + card.getNwbbsName() + " " + card.getEnName());
             }
+//            if (cardTypes[0].equals(CardInfoUtil.CardType.TYPE_MONSTER.getName())) {
+//                //TODO:待补充
+//                 //TODO:部分观赏卡需要手动修改源文件
+//            } else if (cardTypes[0].equals(CardInfoUtil.CardType.TYPE_MAGIC.getName())) {
+//
+//            } else if (cardTypes[0].equals(CardInfoUtil.CardType.TYPE_TRAP.getName())) {
+//
+//            }
         }
         if (cardDb.getData() != null) {
             if (cardDb.getData().getAtk() != null) {
