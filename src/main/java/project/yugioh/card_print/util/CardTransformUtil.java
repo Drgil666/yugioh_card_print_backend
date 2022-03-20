@@ -54,11 +54,11 @@ public class CardTransformUtil {
                         card_type.add(character);
                     }
                     Collections.sort(card_type);
-                    String temp = "";
+                    StringBuilder temp = new StringBuilder();
                     for (Character character1 : card_type) {
-                        temp += character1;
+                        temp.append(character1);
                     }
-                    card.setType(temp);
+                    card.setType(temp.toString());
                 }
             } else {
                 System.out.println("出现异常!" + card.getCode() + " " + card.getNwbbsName() + " " + card.getEnName());
