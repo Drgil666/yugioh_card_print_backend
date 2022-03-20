@@ -22,10 +22,10 @@ public interface CardMapper {
     @Insert("insert into card(code, nwbbs_name, cnocg_name, jp_code, jp_name, " +
             "en_name, type, description, pendulum_description, pendulum_left_scale, " +
             "pendulum_right_scale, atk, def, level, race, attribute, img, " +
-            "ocg_limit, tcg_limit,brief_description) VALUES (#{card.code},#{card.nwbbsName},#{card.cnocgName}," +
+            "ocg_limit, tcg_limit,brief_description,link_mark) VALUES (#{card.code},#{card.nwbbsName},#{card.cnocgName}," +
             "#{card.jpCode},#{card.jpName},#{card.enName},#{card.type},#{card.description}," +
             "#{card.pendulumDescription},#{card.pendulumLeftScale},#{card.pendulumRightScale}," +
             "#{card.atk},#{card.def},#{card.level},#{card.race},#{card.attribute},#{card.img}," +
-            "#{card.ocgLimit},#{card.tcgLimit},#{card.briefDescription})")
+            "#{card.ocgLimit},#{card.tcgLimit},#{card.briefDescription},#{card.linkMark})")
     Boolean createCard(@Param("card") Card card);
 }

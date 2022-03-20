@@ -29,6 +29,23 @@ public class CardTransformUtil {
         //TODO:禁卡表数量需要手动修改，种族效果属性等也需要代码修正
         if(card.getBriefDescription()!=null){
             String description=card.getBriefDescription();
+            int quote1Left=0;int quote1Right=0;
+            //第一个括号的位置
+            for(int i=1;i<description.length();i++){
+                if(description.charAt(i)==']'){
+                    quote1Right=i;
+                    break;
+                }
+            }
+            String quote1=description.substring(quote1Left+1,quote1Right-1);
+            String[] firstQuotes=quote1.split("\\|");
+            if(firstQuotes[0].equals(CardInfoUtil.CardType.TYPE_MONSTER.getName())){
+                //TODO:待补充
+            }else if(firstQuotes[0].equals(CardInfoUtil.CardType.TYPE_MAGIC.getName()){
+
+            }else if(firstQuotes[0].equals(CardInfoUtil.CardType.TYPE_TRAP.getName()){
+
+            }
         }
         if (cardDb.getData() != null) {
             if (cardDb.getData().getAtk() != null) {

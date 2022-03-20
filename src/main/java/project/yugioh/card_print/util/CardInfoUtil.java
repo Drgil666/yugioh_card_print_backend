@@ -33,7 +33,13 @@ public class CardInfoUtil {
     private static final String FIELD_ATTRIBUTE = "场地";
     private static final String TRAP_ATTRIBUTE = "陷阱";
     private static final String COUNTER_ATTRIBUTE = "反击";
-
+    private static final String GOD_ATTRIBUTE = "神";
+    private static final String DARK_ATTRIBUTE = "暗";
+    private static final String EARTH_ATTRIBUTE = "地";
+    private static final String LIGHT_ATTRIBUTE = "光";
+    private static final String FLAME_ATTRIBUTE = "炎";
+    private static final String AQUA_ATTRIBUTE = "水";
+    private static final String WIND_ATTRIBUTE = "风";
 
     @AllArgsConstructor
     @Getter
@@ -41,30 +47,166 @@ public class CardInfoUtil {
         /**
          * 怪兽
          */
-        TYPE_MONSTER(1, MONSTER_ATTRIBUTE),
+        TYPE_MONSTER('1', MONSTER_ATTRIBUTE),
         /**
          * 通常怪兽
          */
-        TYPE_NORMAL(2, NORMAL_ATTRIBUTE);
-        //TODO:待补充
-        private final Integer code;
+        TYPE_NORMAL('2', NORMAL_ATTRIBUTE),
+        /**
+         * 效果怪兽
+         */
+        TYPE_EFFECT('3', EFFECT_ATTRIBUTE),
+        /**
+         * 特殊召唤怪兽
+         */
+        TYPE_SPECIAL_SUMMON('4', SPECIAL_SUMMON_ATTRIBUTE),
+        /**
+         * 卡通怪兽
+         */
+        TYPE_CARTOON('5', CARTOON_ATTRIBUTE),
+        /**
+         * 同盟怪兽
+         */
+        TYPE_UNION('6', UNION_ATTRIBUTE),
+        /**
+         * 灵魂怪兽
+         */
+        TYPE_SPIRIT('7', SPIRIT_ATTRIBUTE),
+        /**
+         * 反转怪兽
+         */
+        TYPE_FLIP('8', FLIP_ATTRIBUTE),
+        /**
+         * 二重怪兽
+         */
+        TYPE_GEMINI('9', GEMINI_ATTRIBUTE),
+        /**
+         * 仪式怪兽
+         */
+        TYPE_RITUAL('A', RITUAL_ATTRIBUTE),
+        /**
+         * 调整怪兽
+         */
+        TYPE_TUNER('B', TUNER_ATTRIBUTE),
+        /**
+         * 融合怪兽
+         */
+        TYPE_FUSION('C', FUSION_ATTRIBUTE),
+        /**
+         * 同调怪兽
+         */
+        TYPE_SYNCHRO('D', SYNCHRO_ATTRIBUTE),
+        /**
+         * 超量怪兽
+         */
+        TYPE_XYZ('E', XYZ_ATTRIBUTE),
+        /**
+         * 灵摆怪兽
+         */
+        TYPE_PENDULUM('F', PENDULUM_ATTRIBUTE),
+        /**
+         * 连接怪兽
+         */
+        TYPE_LINK('G', LINK_ATTRIBUTE),
+        /**
+         * 魔法
+         */
+        TYPE_MAGIC('H', MAGIC_ATTRIBUTE),
+        /**
+         * 装备魔法/陷阱
+         */
+        TYPE_EQUIP('I', EQUIP_ATTRIBUTE),
+        /**
+         * 永续魔法/陷阱
+         */
+        TYPE_CONTINUOUS('J', CONTINUOUS_ATTRIBUTE),
+        /**
+         * 速攻魔法
+         */
+        TYPE_QUICK_PLAY('K', QUICK_PLAY_ATTRIBUTE),
+        /**
+         * 场地魔法
+         */
+        TYPE_FIELD('L', FIELD_ATTRIBUTE),
+        /**
+         * 陷阱
+         */
+        TYPE_TRAP('M', TRAP_ATTRIBUTE),
+        /**
+         * 反击陷阱
+         */
+        TYPE_COUNTER('N', COUNTER_ATTRIBUTE);
+        private final char code;
         private final String name;
     }
 
-    public static final CardType[] CARD_TYPE_LIST = CardType.values();
-    public static final HashMap<String, Integer> CARD_TYPE_MAP = getCardTypeMap();
+    @AllArgsConstructor
+    @Getter
+    public enum CardAttribute {
+        /**
+         * 神属性
+         */
+        TYPE_GOD(1, GOD_ATTRIBUTE),
+        /**
+         * 暗属性
+         */
+        TYPE_DARK(2, DARK_ATTRIBUTE),
+        /**
+         * 地属性
+         */
+        TYPE_EARTH(3, EARTH_ATTRIBUTE),
+        /**
+         * 光属性
+         */
+        TYPE_LIGHT(4, LIGHT_ATTRIBUTE),
+        /**
+         * 火属性
+         */
+        TYPE_FLAME(5, FLAME_ATTRIBUTE),
+        /**
+         * 水属性
+         */
+        TYPE_AQUA(6, AQUA_ATTRIBUTE),
+        /**
+         * 风属性
+         */
+        TYPE_WIND(7, WIND_ATTRIBUTE);
+        private final int code;
+        private final String name;
+        }
 
-    public static HashMap<String, Integer> getCardTypeMap() {
-        HashMap<String, Integer> hashMap = new HashMap<>(10);
+    public static final CardType[] CARD_TYPE_LIST = CardType.values();
+    public static final HashMap<String, Character> CARD_TYPE_MAP = getCardTypeMap();
+    public static final CardAttribute[] CARD_ATTRIBUTE_LIST = CardAttribute.values();
+    public static final HashMap<String, Integer> CARD_ATTRIBUTE_MAP = getCardAttributeMap();
+
+    public static HashMap<String, Character> getCardTypeMap() {
+        HashMap<String, Character> hashMap = new HashMap<>(10);
         for (CardType cardType : CARD_TYPE_LIST) {
             hashMap.put(cardType.name, cardType.code);
         }
         return hashMap;
     }
 
-    public static Integer getCharacterByName(String name) {
+    public static HashMap<String, Integer> getCardAttributeMap() {
+        HashMap<String, Integer> hashMap = new HashMap<>(10);
+        for (CardAttribute cardAttribute : CARD_ATTRIBUTE_LIST) {
+            hashMap.put(cardAttribute.name, cardAttribute.code);
+        }
+        return hashMap;
+    }
+
+
+    public static Character getCardTypeByName(String name) {
         if (CARD_TYPE_MAP.containsKey(name)) {
             return CARD_TYPE_MAP.get(name);
+        }
+        return null;
+    }
+
+    public static Integer getCardAttributeByName(String name) {
+        if (CARD_ATTRIBUTE_MAP.containsKey(name)) {
+            return CARD_ATTRIBUTE_MAP.get(name);
         }
         return null;
     }

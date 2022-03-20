@@ -92,4 +92,8 @@ public class Card {
      * 卡片简要介绍
      */
     private String briefDescription;
+    /**
+     * 连接箭头
+     */
+    private String linkMark;
 }
