@@ -2,9 +2,7 @@ package project.yugioh.card_print.service.Impl;
 
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageSz;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.STPageOrientation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import project.yugioh.card_print.service.CardPrintService;
@@ -12,7 +10,6 @@ import project.yugioh.card_print.service.CardPrintService;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigInteger;
 
 /**
  * @author Gilbert
@@ -50,7 +47,9 @@ public class CardPrintServiceImpl implements CardPrintService {
             XWPFRun run = paragraph.createRun();
             //创建段落文本
             run.setText("{{@image" + (3 * (i - 1) + 1) + "}}  {{@image" + (3 * (i - 1) + 2) + "}}  {{@image" + (3 * (i - 1) + 3) + "}}");
-            run.addBreak(BreakType.TEXT_WRAPPING);
+            if (i != Math.ceil(size / 3.0)) {
+                run.addBreak(BreakType.TEXT_WRAPPING);
+            }
             if (i % 3 != 0 && i != Math.ceil(size / 3.0)) {
                 run.addBreak(BreakType.TEXT_WRAPPING);
             }
