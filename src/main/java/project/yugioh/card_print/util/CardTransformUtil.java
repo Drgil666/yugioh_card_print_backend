@@ -60,17 +60,56 @@ public class CardTransformUtil {
                     }
                     card.setType(temp.toString());
                 }
+                if (cardTypes[0].equals(CardInfoUtil.CardType.TYPE_MONSTER.getName())) {
+                    //TODO:待补充
+                    int raceIndex = quote1Right + 2;
+                    for (int i = quote1Right + 2; i < description.length(); i++) {
+                        if (description.charAt(i) == '/') {
+                            raceIndex = i;
+                            break;
+                        }
+                    }
+                    String race = description.substring(quote1Right + 2, raceIndex);
+                    Integer cardRace = CardInfoUtil.getCardRaceByName(race);
+                    if (cardRace != null) {
+                        card.setRace(cardRace);
+                    }
+                    int attributeIndex = raceIndex + 1;
+                    for (int i = raceIndex + 1; i < description.length(); i++) {
+                        if (description.charAt(i) == '[') {
+                            attributeIndex = i - 1;
+                            break;
+                        }
+                    }
+                    String attribute = description.substring(raceIndex + 1, attributeIndex);
+                    Integer cardAttribute = CardInfoUtil.getCardAttributeByName(attribute);
+                    if (cardAttribute != null) {
+                        card.setAttribute(cardAttribute);
+                    }
+                    if (card_type.contains(CardInfoUtil.CardType.TYPE_LINK.getCode())) {
+                        //连接怪兽
+                    } else {
+                        //其他怪兽都有星级或阶级
+                        int level = 0;
+                        int atkIndex = attributeIndex + 1;
+                        for (int i = attributeIndex + 1; i < description.length(); i++) {
+                            if (description.charAt(i) == '★' || description.charAt(i) == '☆') {
+                                int k = i + 1;
+                                while (k < description.length() && description.charAt(k)>='0' && description.charAt(k)<='9') {
+                                    level = level * 10 + description.charAt(k) - '0';
+                                    k++;
+                                }
+                                i = k;
+                                atkIndex = i;
+                                break;
+                            }
+                        }
+                        card.setLevel(level);
+                    }
+                }
             } else {
                 System.out.println("出现异常!" + card.getCode() + " " + card.getNwbbsName() + " " + card.getEnName());
             }
-//            if (cardTypes[0].equals(CardInfoUtil.CardType.TYPE_MONSTER.getName())) {
-//                //TODO:待补充
-//                 //TODO:部分观赏卡需要手动修改源文件
-//            } else if (cardTypes[0].equals(CardInfoUtil.CardType.TYPE_MAGIC.getName())) {
-//
-//            } else if (cardTypes[0].equals(CardInfoUtil.CardType.TYPE_TRAP.getName())) {
-//
-//            }
         }
         if (cardDb.getData() != null) {
             if (cardDb.getData().getAtk() != null) {
@@ -79,8 +118,6 @@ public class CardTransformUtil {
             if (cardDb.getData().getDef() != null) {
                 card.setDef(cardDb.getData().getDef());
             }
-            card.setLevel(cardDb.getData().getLevel());
-            card.setRace(cardDb.getData().getRace());
             card.setAttribute(cardDb.getData().getAttribute());
         }
         return card;
