@@ -33,11 +33,9 @@ public class CardInfoUtil {
     private static final String FIELD_ATTRIBUTE = "场地";
     private static final String TRAP_ATTRIBUTE = "陷阱";
     private static final String COUNTER_ATTRIBUTE = "反击";
-    public static final CardRace[] CARD_RACE_LIST = CardRace.values();
     private static final String DARK_ATTRIBUTE = "暗";
     private static final String EARTH_ATTRIBUTE = "地";
     private static final String LIGHT_ATTRIBUTE = "光";
-    public static final HashMap<String, Integer> CARD_RACE_MAP = getCardRaceMap();
     private static final String DIVINE_ATTRIBUTE = "神";
     private static final String WIND_ATTRIBUTE = "风";
     private static final String FIRE_ATTRIBUTE = "炎";
@@ -136,7 +134,7 @@ public class CardInfoUtil {
          */
         TYPE_MAGIC('H', MAGIC_ATTRIBUTE),
         /**
-         * 装备魔法/陷阱
+         * 装备魔法
          */
         TYPE_EQUIP('I', EQUIP_ATTRIBUTE),
         /**
@@ -170,6 +168,8 @@ public class CardInfoUtil {
     public static final HashMap<String, Character> CARD_TYPE_MAP = getCardTypeMap();
     public static final CardAttribute[] CARD_ATTRIBUTE_LIST = CardAttribute.values();
     public static final HashMap<String, Integer> CARD_ATTRIBUTE_MAP = getCardAttributeMap();
+    public static final CardRace[] CARD_RACE_LIST = CardRace.values();
+    public static final HashMap<String, Integer> CARD_RACE_MAP = getCardRaceMap();
 
     public static HashMap<String, Integer> getCardRaceMap() {
         HashMap<String, Integer> hashMap = new HashMap<>(10);
