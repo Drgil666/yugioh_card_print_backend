@@ -61,6 +61,8 @@ public class CardInfoUtil {
     private static final String THUNDER_ATTRIBUTE = "雷";
     private static final String WARRIOR_ATTRIBUTE = "战士";
     private static final String WINGED_BEAST_ATTRIBUTE = "鸟兽";
+    private static final String WYRM_ATTRIBUTE = "幻龙";
+    private static final String ZOMBIE_ATTRIBUTE = "不死";
 
     @AllArgsConstructor
     @Getter
@@ -161,47 +163,6 @@ public class CardInfoUtil {
         private final String name;
     }
 
-    private static final String WYRM_ATTRIBUTE = "幻龙";
-    private static final String ZOMBIE_ATTRIBUTE = "不死";
-
-    public static final CardType[] CARD_TYPE_LIST = CardType.values();
-    public static final HashMap<String, Character> CARD_TYPE_MAP = getCardTypeMap();
-    public static final CardAttribute[] CARD_ATTRIBUTE_LIST = CardAttribute.values();
-    public static final HashMap<String, Integer> CARD_ATTRIBUTE_MAP = getCardAttributeMap();
-    public static final CardRace[] CARD_RACE_LIST = CardRace.values();
-    public static final HashMap<String, Integer> CARD_RACE_MAP = getCardRaceMap();
-
-    public static HashMap<String, Integer> getCardRaceMap() {
-        HashMap<String, Integer> hashMap = new HashMap<>(10);
-        for (CardRace cardRace : CARD_RACE_LIST) {
-            hashMap.put(cardRace.name, cardRace.code);
-        }
-        return hashMap;
-    }
-
-    public static Integer getCardRaceByName(String name) {
-        if (CARD_RACE_MAP.containsKey(name)) {
-            return CARD_RACE_MAP.get(name);
-        }
-        return null;
-    }
-
-    public static HashMap<String, Character> getCardTypeMap() {
-        HashMap<String, Character> hashMap = new HashMap<>(10);
-        for (CardType cardType : CARD_TYPE_LIST) {
-            hashMap.put(cardType.name, cardType.code);
-        }
-        return hashMap;
-    }
-
-    public static HashMap<String, Integer> getCardAttributeMap() {
-        HashMap<String, Integer> hashMap = new HashMap<>(10);
-        for (CardAttribute cardAttribute : CARD_ATTRIBUTE_LIST) {
-            hashMap.put(cardAttribute.name, cardAttribute.code);
-        }
-        return hashMap;
-    }
-
     @AllArgsConstructor
     @Getter
     public enum CardAttribute {
@@ -236,21 +197,6 @@ public class CardInfoUtil {
         private final int code;
         private final String name;
     }
-
-    public static Character getCardTypeByName(String name) {
-        if (CARD_TYPE_MAP.containsKey(name)) {
-            return CARD_TYPE_MAP.get(name);
-        }
-        return null;
-    }
-
-    public static Integer getCardAttributeByName(String name) {
-        if (CARD_ATTRIBUTE_MAP.containsKey(name)) {
-            return CARD_ATTRIBUTE_MAP.get(name);
-        }
-        return null;
-    }
-
 
     @AllArgsConstructor
     @Getter
@@ -350,4 +296,57 @@ public class CardInfoUtil {
         private final int code;
         private final String name;
     }
+
+    public static final CardType[] CARD_TYPE_LIST = CardType.values();
+    public static final HashMap<String, Character> CARD_TYPE_MAP = getCardTypeMap();
+    public static final CardAttribute[] CARD_ATTRIBUTE_LIST = CardAttribute.values();
+    public static final HashMap<String, Integer> CARD_ATTRIBUTE_MAP = getCardAttributeMap();
+    public static final CardRace[] CARD_RACE_LIST = CardRace.values();
+    public static final HashMap<String, Integer> CARD_RACE_MAP = getCardRaceMap();
+
+    public static HashMap<String, Integer> getCardRaceMap() {
+        HashMap<String, Integer> hashMap = new HashMap<>(10);
+        for (CardRace cardRace : CARD_RACE_LIST) {
+            hashMap.put(cardRace.name, cardRace.code);
+        }
+        return hashMap;
+    }
+
+    public static Integer getCardRaceByName(String name) {
+        if (CARD_RACE_MAP.containsKey(name)) {
+            return CARD_RACE_MAP.get(name);
+        }
+        return null;
+    }
+
+    public static HashMap<String, Character> getCardTypeMap() {
+        HashMap<String, Character> hashMap = new HashMap<>(10);
+        for (CardType cardType : CARD_TYPE_LIST) {
+            hashMap.put(cardType.name, cardType.code);
+        }
+        return hashMap;
+    }
+
+    public static HashMap<String, Integer> getCardAttributeMap() {
+        HashMap<String, Integer> hashMap = new HashMap<>(10);
+        for (CardAttribute cardAttribute : CARD_ATTRIBUTE_LIST) {
+            hashMap.put(cardAttribute.name, cardAttribute.code);
+        }
+        return hashMap;
+    }
+
+    public static Character getCardTypeByName(String name) {
+        if (CARD_TYPE_MAP.containsKey(name)) {
+            return CARD_TYPE_MAP.get(name);
+        }
+        return null;
+    }
+
+    public static Integer getCardAttributeByName(String name) {
+        if (CARD_ATTRIBUTE_MAP.containsKey(name)) {
+            return CARD_ATTRIBUTE_MAP.get(name);
+        }
+        return null;
+    }
+
 }
