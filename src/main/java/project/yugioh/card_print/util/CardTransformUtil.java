@@ -20,9 +20,9 @@ public class CardTransformUtil {
         card.setEnName(cardDb.getEn_name());
         card.setJpCode(cardDb.getJp_ruby());
         card.setJpName(cardDb.getJp_name());
-        card.setBriefDescription("暂无信息描述");
-        card.setPendulumDescription("暂无灵摆效果模数");
-        card.setDescription("暂无效果描述");
+        card.setBriefDescription(null);
+        card.setPendulumDescription(null);
+        card.setDescription(null);
         if (cardDb.getText() != null) {
             card.setBriefDescription(cardDb.getText().getTypes());
             card.setPendulumDescription(cardDb.getText().getPdesc());

@@ -31,9 +31,9 @@ public class CardServiceImplTest {
 
     @Test
     public void createCard() {
-        // File file = new File("C:/Users/25741/Desktop/cards.json");
+         File file = new File("C:/Users/25741/Desktop/cards.json");
         // File file = new File("Y:/Users/DrGilbert/Desktop/cards.json");
-        File file = new File("../java/project/yugioh/card_print/cardData/cards.json");
+        //File file = new File("../java/project/yugioh/card_print/cardData/cards.json");
         StringBuilder stringBuilder = new StringBuilder();
         int cnt = 0;
         try {
@@ -51,6 +51,7 @@ public class CardServiceImplTest {
         LinkedHashMap<String, CardDb> cardList = gson.fromJson(String.valueOf(stringBuilder),
                 new TypeToken<LinkedHashMap<String, CardDb>>() {
                 }.getType());
+        System.out.println("解析完成，开始录入...");
         for (HashMap.Entry<String, CardDb> entry : cardList.entrySet()) {
             CardDb cardDb = entry.getValue();
             //System.out.println(entry.getKey());
