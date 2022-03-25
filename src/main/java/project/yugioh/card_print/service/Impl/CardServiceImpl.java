@@ -26,4 +26,38 @@ public class CardServiceImpl implements CardService {
     public Boolean createCard(Card card) {
         return cardMapper.createCard(card);
     }
+
+    /**
+     * 更新卡片图源
+     *
+     * @param cardId  卡片id
+     * @param mongoId 卡图mongoId
+     * @return 影响行数
+     */
+    @Override
+    public Long updateCard(Integer cardId, String mongoId) {
+        return cardMapper.updateCard(cardId, mongoId);
+    }
+
+    /**
+     * 根据卡片id获取卡片
+     *
+     * @param cardId 卡片id
+     * @return 卡片信息
+     */
+    @Override
+    public Card getCard(Integer cardId) {
+        return cardMapper.getCard(cardId);
+    }
+
+    /**
+     * 根据卡片密码获取卡片
+     *
+     * @param cardCode 卡片密码
+     * @return 卡片信息
+     */
+    @Override
+    public Card getCardByCode(Integer cardCode) {
+        return cardMapper.getCardByCode(cardCode);
+    }
 }

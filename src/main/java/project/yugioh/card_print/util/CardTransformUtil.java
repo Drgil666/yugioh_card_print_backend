@@ -90,6 +90,7 @@ public class CardTransformUtil {
                         //连接怪兽
                     } else {
                         //其他怪兽都有星级或阶级
+                        //TODO:需要补全
                         int level = 0;
                         int atkIndex = attributeIndex + 1;
                         for (int i = attributeIndex + 1; i < description.length(); i++) {

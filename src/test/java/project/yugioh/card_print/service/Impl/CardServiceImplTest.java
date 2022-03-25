@@ -11,6 +11,7 @@ import project.yugioh.card_print.pojo.Card;
 import project.yugioh.card_print.pojo.vo.CardDb;
 import project.yugioh.card_print.service.CardService;
 import project.yugioh.card_print.util.CardTransformUtil;
+import project.yugioh.card_print.util.SeleniumUtil;
 
 import javax.annotation.Resource;
 import java.io.BufferedReader;
@@ -59,5 +60,12 @@ public class CardServiceImplTest {
             cardService.createCard(card);
         }
         System.out.println("读取完成!" + cardList.size());
+    }
+    @Test
+    public void downloadCard() throws InterruptedException {
+        SeleniumUtil.pre();
+        SeleniumUtil.getImage("黑牙之魔术师");
+        SeleniumUtil.getImage("贱龙之魔术师");
+        SeleniumUtil.after();
     }
 }

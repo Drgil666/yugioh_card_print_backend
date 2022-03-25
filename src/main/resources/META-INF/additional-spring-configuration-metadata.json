@@ -44,5 +44,10 @@
       "name": "grid.fs.database",
       "type": "java.lang.String",
       "description": "Description for grid.fs.database."
+    },
+    {
+      "name": "ydk.suffix",
+      "type": "java.lang.String",
+      "description": "Description for ydk.suffix."
     }
   ] }

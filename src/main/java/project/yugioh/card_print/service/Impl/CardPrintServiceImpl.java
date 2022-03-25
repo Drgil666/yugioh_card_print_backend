@@ -1,5 +1,7 @@
 package project.yugioh.card_print.service.Impl;
 
+import com.deepoove.poi.XWPFTemplate;
+import com.deepoove.poi.data.Pictures;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
@@ -9,7 +11,10 @@ import project.yugioh.card_print.service.CardPrintService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Gilbert
@@ -23,6 +28,8 @@ public class CardPrintServiceImpl implements CardPrintService {
     private static final long RIGHT_MARGIN = 568L;
     private static final long TOP_MARGIN = 284L;
     private static final long BOTTOM_MARGIN = 114L;
+    @Value("${template.path}")
+    private String templatePath;
 
     /**
      * 创建模板文件
@@ -58,5 +65,23 @@ public class CardPrintServiceImpl implements CardPrintService {
         //生成文件
         document.write(out);
         out.close();
+    }
+
+    /**
+     * 生成打印文件
+     *
+     * @param imageList 图片输入流
+     * @return 文件
+     */
+    @Override
+    public XWPFTemplate createExport(List<InputStream> imageList) {
+        int width = 225;
+        int height = 328;
+        XWPFTemplate template = XWPFTemplate.compile(templatePath).render(new HashMap<String, Object>(10) {{
+            for (int i = 0; i < imageList.size(); i++) {
+                put("image" + (i + 1), Pictures.ofStream(imageList.get(i)).size(width, height).create());
+            }
+        }});
+        return template;
     }
 }
