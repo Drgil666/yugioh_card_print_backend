@@ -111,10 +111,10 @@ public class CardPrintController {
             OutputStream stream = new FileOutputStream(filePath + "/" + exportFileName);
             template.writeAndClose(stream);
             stream.close();
-            System.out.println("准备发送邮件...");
-            Thread.sleep(5000);
-            mailService.sendMail(new File(filePath, exportFileName), email);
-            System.out.println("发送成功!");
+//            System.out.println("准备发送邮件...");
+//            Thread.sleep(5000);
+//            mailService.sendMail(new File(filePath, exportFileName), email);
+//            System.out.println("发送成功!");
         }
     }
 
