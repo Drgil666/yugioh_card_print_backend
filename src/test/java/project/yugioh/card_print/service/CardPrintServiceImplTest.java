@@ -18,7 +18,7 @@ public class CardPrintServiceImplTest {
     @Resource
     private CardPrintService cardPrintService;
     @Test
-    public void createTemplate () throws IOException {
+    public void createTemplate () throws IOException,IllegalArgumentException {
         cardPrintService.createTemplate(36);
     }
 }

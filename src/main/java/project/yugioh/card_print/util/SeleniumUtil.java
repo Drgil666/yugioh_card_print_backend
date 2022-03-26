@@ -30,8 +30,10 @@ public class SeleniumUtil {
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         System.setProperty("webdriver.chrome.driver", "C:/Users/25741/Desktop/chromedriver.exe");
         driver = new ChromeDriver(desiredCapabilities);
+        //driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(URL);
+        System.out.println("初始化完成!");
         Thread.sleep(3000);
     }
 
@@ -41,16 +43,17 @@ public class SeleniumUtil {
         cardName.sendKeys(keyword);
         System.out.println("输入卡名："+keyword);
         //输入卡名
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         WebElement cardClick = driver.findElement(By.xpath(CARD_CLICK_XPATH));
         cardClick.click();
         System.out.println("点击卡片");
         //点击卡片,等待加载
-        Thread.sleep(11000);
+        Thread.sleep(20000);
+        System.out.println("准备下载...");
         WebElement downloadButton = driver.findElement(By.xpath(DOWNLOAD_BUTTON));
         downloadButton.click();
         System.out.println("下载");
-        Thread.sleep(3000);
+        Thread.sleep(10000);
     }
 
     public static void after() {
