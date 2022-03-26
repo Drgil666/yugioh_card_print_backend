@@ -64,18 +64,21 @@ public class CardPrintController {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(multipartFile.getInputStream()));
             String lineTxt;
             List<String> imageList = new ArrayList<>();
-            SeleniumUtil.pre();
             while ((lineTxt = bufferedReader.readLine()) != null) {
                 System.out.println(lineTxt);
                 if (org.apache.commons.lang3.StringUtils.isNumeric(lineTxt)) {
                     Integer cardCode = Integer.parseInt(lineTxt);
                     Card card = cardService.getCardByCode(cardCode);
+                    if (card == null) {
+                        System.out.println("出现未知卡片！卡片密码：" + cardCode);
+                        continue;
+                    }
                     GridFsResource gridFsServiceFile = gridFsService.getFile(card.getImg());
                     if (gridFsServiceFile == null) {
                         SeleniumUtil.getImage(card.getNwbbsName());
-                        File file = new File(cardPath, card.getNwbbsName() + ".png");
+                        File file = new File(cardPath, card.getNwbbsName()+ ".png");
                         file.renameTo(new File(cardPath, card.getCode() + ".png"));
-                        FileInputStream inputStream = new FileInputStream(file);
+                        FileInputStream inputStream = new FileInputStream(new File(cardPath, card.getCode() + ".png"));
                         MultipartFile multipartFile1 = new MockMultipartFile(card.getCode() + ".png", card.getCode() + ".png",
                                 ContentType.IMAGE_PNG.toString(), inputStream);
                         String mongoId = gridFsService.createFile(multipartFile1);

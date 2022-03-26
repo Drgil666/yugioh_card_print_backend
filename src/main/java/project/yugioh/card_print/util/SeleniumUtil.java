@@ -18,7 +18,7 @@ public class SeleniumUtil {
     public static final String CARD_NAME_XPATH = "/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[2]/div[2]/div/div/input";
     public static final String CARD_CLICK_XPATH = "/html/body/div[2]/div[2]/div/div/div[1]/ul/li";
     public static final String DOWNLOAD_BUTTON = "/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/div[1]/div/div[5]/button";
-    private static ChromeDriver driver;
+    public static ChromeDriver driver;
     public static String downloadPath = "D:\\card_print_test\\card";
 
     public static void pre() throws InterruptedException {
@@ -41,7 +41,7 @@ public class SeleniumUtil {
         WebElement cardName = driver.findElement(By.xpath(CARD_NAME_XPATH));
         cardName.clear();
         cardName.sendKeys(keyword);
-        System.out.println("输入卡名："+keyword);
+        System.out.println("输入卡名：" + keyword);
         //输入卡名
         Thread.sleep(5000);
         WebElement cardClick = driver.findElement(By.xpath(CARD_CLICK_XPATH));
