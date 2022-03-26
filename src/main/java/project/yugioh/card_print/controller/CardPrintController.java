@@ -102,17 +102,19 @@ public class CardPrintController {
                 }
             }
             SeleniumUtil.after();
-            log.debug("共" + imageList.size() + "张图片！");
-            log.debug("正在创建模板文件...");
+            System.out.println("共" + imageList.size() + "张图片！");
+            System.out.println("正在创建模板文件...");
             cardPrintService.createTemplate(imageList.size());
-            log.debug("正在生成文档...");
+            System.out.println("正在生成文档...");
             XWPFTemplate template = cardPrintService.createExport(imageList);
-            log.debug("生成文档成功！");
+            System.out.println("生成文档成功！");
             OutputStream stream = new FileOutputStream(filePath + "/" + exportFileName);
             template.writeAndClose(stream);
-            log.debug("准备发送邮件...");
+            stream.close();
+            System.out.println("准备发送邮件...");
+            Thread.sleep(5000);
             mailService.sendMail(new File(filePath, exportFileName), email);
-            log.debug("发动成功!");
+            System.out.println("发送成功!");
         }
     }
 
