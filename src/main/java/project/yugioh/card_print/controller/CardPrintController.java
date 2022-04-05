@@ -18,7 +18,6 @@ import project.yugioh.card_print.service.MailService;
 import project.yugioh.card_print.util.SeleniumUtil;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.ArrayList;
@@ -57,9 +56,7 @@ public class CardPrintController {
     @ResponseBody
     @PostMapping("/upload")
     public void uploadFile(@RequestParam(value = "file")
-                                   MultipartFile multipartFile,
-                           @RequestParam(value = "email")
-                                   String email) throws IOException, InterruptedException, MessagingException, IllegalArgumentException {
+                                   MultipartFile multipartFile,) throws IOException, InterruptedException, IllegalArgumentException {
         if (multipartFile.getOriginalFilename().endsWith(ydkSuffix)) {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(multipartFile.getInputStream()));
             String lineTxt;
@@ -75,7 +72,9 @@ public class CardPrintController {
                     }
                     GridFsResource gridFsServiceFile = gridFsService.getFile(card.getImg());
                     if (gridFsServiceFile == null) {
-                        SeleniumUtil.getImage(card.getNwbbsName());
+                        if(!new File(cardPath, card.getCode() + ".png").exists()){
+                            SeleniumUtil.getImage(card.getNwbbsName());
+                        }
                         File file = new File(cardPath, card.getNwbbsName()+ ".png");
                         file.renameTo(new File(cardPath, card.getCode() + ".png"));
                         FileInputStream inputStream = new FileInputStream(new File(cardPath, card.getCode() + ".png"));
