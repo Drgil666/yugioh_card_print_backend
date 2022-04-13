@@ -18,6 +18,9 @@ public class SeleniumUtil {
     public static final String CARD_NAME_XPATH = "/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[2]/div[2]/div/div/input";
     public static final String CARD_CLICK_XPATH = "/html/body/div[2]/div[2]/div/div/div[1]/ul/li";
     public static final String DOWNLOAD_BUTTON = "/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/div[1]/div/div[5]/button";
+    public static final String CARD_LANGUAGE = "/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[1]/div[2]/div/div/div/input";
+    public static final String JAPANESE_CARD = "/html/body/div[2]/div[1]/div/div/div[1]/ul/li[3]";
+    public static final String CHINESE_CARD = "/html/body/div[2]/div[1]/div/div/div[1]/ul/li[1]";
     public static ChromeDriver driver;
     public static String downloadPath = "D:\\card_print_test\\card";
 
@@ -37,7 +40,20 @@ public class SeleniumUtil {
         Thread.sleep(3000);
     }
 
-    public static void getImage(String keyword) throws InterruptedException {
+    public static void getImage(String keyword, Boolean isCn) throws InterruptedException {
+        WebElement cardLanguage = driver.findElement(By.xpath(CARD_LANGUAGE));
+        cardLanguage.click();
+        Thread.sleep(100);
+        WebElement language;
+        if (!isCn) {
+            System.out.println("选择语言:日文");
+            language = driver.findElement(By.xpath(JAPANESE_CARD));
+        } else {
+            System.out.println("选择语言:中文");
+            language = driver.findElement(By.xpath(CHINESE_CARD));
+        }
+        language.click();
+        Thread.sleep(100);
         WebElement cardName = driver.findElement(By.xpath(CARD_NAME_XPATH));
         cardName.clear();
         cardName.sendKeys(keyword);

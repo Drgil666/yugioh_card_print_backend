@@ -64,8 +64,8 @@ public class CardServiceImplTest {
     @Test
     public void downloadCard() throws InterruptedException {
         SeleniumUtil.pre();
-        SeleniumUtil.getImage("黑牙之魔术师");
-        SeleniumUtil.getImage("贱龙之魔术师");
+        SeleniumUtil.getImage("黑牙之魔术师",true);
+        SeleniumUtil.getImage("贱龙之魔术师",true);
         SeleniumUtil.after();
     }
 }

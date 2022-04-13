@@ -56,7 +56,7 @@ public class CardPrintController {
     @ResponseBody
     @PostMapping("/upload")
     public void uploadFile(@RequestParam(value = "file")
-                                   MultipartFile multipartFile,) throws IOException, InterruptedException, IllegalArgumentException {
+                                   MultipartFile multipartFile) throws IOException, InterruptedException, IllegalArgumentException {
         if (multipartFile.getOriginalFilename().endsWith(ydkSuffix)) {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(multipartFile.getInputStream()));
             String lineTxt;
@@ -73,7 +73,8 @@ public class CardPrintController {
                     GridFsResource gridFsServiceFile = gridFsService.getFile(card.getImg());
                     if (gridFsServiceFile == null) {
                         if(!new File(cardPath, card.getCode() + ".png").exists()){
-                            SeleniumUtil.getImage(card.getNwbbsName());
+                            SeleniumUtil.getImage(card.getNwbbsName(),true);
+//                            SeleniumUtil.getImage(card.getNwbbsName(),false);
                         }
                         File file = new File(cardPath, card.getNwbbsName()+ ".png");
                         file.renameTo(new File(cardPath, card.getCode() + ".png"));
