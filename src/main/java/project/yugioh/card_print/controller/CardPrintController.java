@@ -101,7 +101,7 @@ public class CardPrintController {
                     imageList.add(card.getCode() + ".png");
                 }
             }
-            SeleniumUtil.after();
+            //SeleniumUtil.after();
             System.out.println("共" + imageList.size() + "张图片！");
             System.out.println("正在创建模板文件...");
             cardPrintService.createTemplate(imageList.size());
