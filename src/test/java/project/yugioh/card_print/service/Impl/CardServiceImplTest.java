@@ -11,12 +11,14 @@ import project.yugioh.card_print.pojo.Card;
 import project.yugioh.card_print.pojo.vo.CardDb;
 import project.yugioh.card_print.service.CardService;
 import project.yugioh.card_print.util.CardTransformUtil;
+import project.yugioh.card_print.util.PdfUtil;
 import project.yugioh.card_print.util.SeleniumUtil;
 
 import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -64,8 +66,12 @@ public class CardServiceImplTest {
     @Test
     public void downloadCard() throws InterruptedException {
         SeleniumUtil.pre();
-        SeleniumUtil.getImage("黑牙之魔术师",true);
-        SeleniumUtil.getImage("贱龙之魔术师",true);
+        SeleniumUtil.getImageByCardCode("89631143");
+        SeleniumUtil.getImageByCardCode("89631146");
         SeleniumUtil.after();
+    }
+    @Test
+    public void convertToPdf() throws IOException {
+        PdfUtil.convertToPdf();
     }
 }

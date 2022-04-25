@@ -15,6 +15,7 @@ import project.yugioh.card_print.service.CardPrintService;
 import project.yugioh.card_print.service.CardService;
 import project.yugioh.card_print.service.GridFsService;
 import project.yugioh.card_print.service.MailService;
+import project.yugioh.card_print.util.PdfUtil;
 import project.yugioh.card_print.util.SeleniumUtil;
 
 import javax.annotation.Resource;
@@ -62,21 +63,39 @@ public class CardPrintController {
             String lineTxt;
             List<String> imageList = new ArrayList<>();
             while ((lineTxt = bufferedReader.readLine()) != null) {
-                System.out.println(lineTxt);
+                log.debug(lineTxt);
                 if (org.apache.commons.lang3.StringUtils.isNumeric(lineTxt)) {
                     Integer cardCode = Integer.parseInt(lineTxt);
                     Card card = cardService.getCardByCode(cardCode);
                     if (card == null) {
-                        System.out.println("出现未知卡片！卡片密码：" + cardCode);
+                        log.debug("出现未知卡片！卡片密码：" + cardCode);
+                        if (!new File(cardPath, cardCode + ".png").exists()) {
+                            String cardName=SeleniumUtil.getImageByCardCode(cardCode.toString());
+                            card=cardService.getCardByNwbbsName(cardName);
+                            if(card!=null){
+                                log.debug("出现数据库卡片信息:"+cardName);
+                            }
+                            card.setCode(cardCode);
+                            card.setImg(null);
+                            cardService.createCard(card);
+                            File file = new File(cardPath, card.getNwbbsName() + ".png");
+                            file.renameTo(new File(cardPath, card.getCode() + ".png"));
+                            FileInputStream inputStream = new FileInputStream(new File(cardPath, card.getCode() + ".png"));
+                            MultipartFile multipartFile1 = new MockMultipartFile(card.getCode() + ".png", card.getCode() + ".png",
+                                    ContentType.IMAGE_PNG.toString(), inputStream);
+                            String mongoId = gridFsService.createFile(multipartFile1);
+                            card.setImg(mongoId);
+                            cardService.updateCard(card.getId(), mongoId);
+                        }
+                        imageList.add(card.getCode() + ".png");
                         continue;
                     }
                     GridFsResource gridFsServiceFile = gridFsService.getFile(card.getImg());
                     if (gridFsServiceFile == null) {
-                        if(!new File(cardPath, card.getCode() + ".png").exists()){
-                            SeleniumUtil.getImage(card.getNwbbsName(),true);
-//                            SeleniumUtil.getImage(card.getNwbbsName(),false);
+                        if (!new File(cardPath, card.getCode() + ".png").exists()) {
+                            SeleniumUtil.getImageByCardCode(card.getCode().toString());
                         }
-                        File file = new File(cardPath, card.getNwbbsName()+ ".png");
+                        File file = new File(cardPath, card.getNwbbsName() + ".png");
                         file.renameTo(new File(cardPath, card.getCode() + ".png"));
                         FileInputStream inputStream = new FileInputStream(new File(cardPath, card.getCode() + ".png"));
                         MultipartFile multipartFile1 = new MockMultipartFile(card.getCode() + ".png", card.getCode() + ".png",
@@ -102,19 +121,19 @@ public class CardPrintController {
                 }
             }
             //SeleniumUtil.after();
-            System.out.println("共" + imageList.size() + "张图片！");
-            System.out.println("正在创建模板文件...");
+            log.debug("共" + imageList.size() + "张图片！");
+            log.debug("正在创建模板文件...");
             cardPrintService.createTemplate(imageList.size());
-            System.out.println("正在生成文档...");
+            log.debug("正在生成文档...");
             XWPFTemplate template = cardPrintService.createExport(imageList);
-            System.out.println("生成文档成功！");
+            log.debug("生成文档成功！");
             OutputStream stream = new FileOutputStream(filePath + "/" + exportFileName);
             template.writeAndClose(stream);
             stream.close();
-//            System.out.println("准备发送邮件...");
+//            log.debug("准备发送邮件...");
 //            Thread.sleep(5000);
 //            mailService.sendMail(new File(filePath, exportFileName), email);
-//            System.out.println("发送成功!");
+//            log.debug("发送成功!");
         }
     }
 
@@ -142,6 +161,8 @@ public class CardPrintController {
         bufferedOutputStream.flush();
         out.flush();
         PoitlIOUtils.closeQuietlyMulti(template, bufferedOutputStream, out);
+        log.debug("转换成PDF中...");
+        PdfUtil.convertToPdf();
         log.debug("总文件个数:" + arr.length);
         log.debug("文件个数:" + cardFileList.size());
     }

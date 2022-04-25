@@ -49,5 +49,10 @@
       "name": "ydk.suffix",
       "type": "java.lang.String",
       "description": "Description for ydk.suffix."
+    },
+    {
+      "name": "export.pdf.name",
+      "type": "java.lang.String",
+      "description": "Description for export.pdf.name."
     }
   ] }

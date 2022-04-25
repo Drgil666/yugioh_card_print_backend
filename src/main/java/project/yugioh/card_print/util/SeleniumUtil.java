@@ -22,6 +22,8 @@ public class SeleniumUtil {
     public static final String JAPANESE_CARD = "/html/body/div[2]/div[1]/div/div/div[1]/ul/li[3]";
     public static final String CHINESE_CARD = "/html/body/div[2]/div[1]/div/div/div[1]/ul/li[1]";
     public static ChromeDriver driver;
+    public static final String CARD_CODE = "/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[15]/div[2]/div/div[1]/div/input";
+    public static final String CARD_CODE_CONFIRM = "/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[15]/div[2]/div/div[2]/div/button[1]";
     public static String downloadPath = "D:\\card_print_test\\card";
 
     public static void pre() throws InterruptedException {
@@ -40,26 +42,14 @@ public class SeleniumUtil {
         Thread.sleep(3000);
     }
 
-    public static void getImage(String keyword, Boolean isCn) throws InterruptedException {
-        WebElement cardLanguage = driver.findElement(By.xpath(CARD_LANGUAGE));
-        cardLanguage.click();
-        Thread.sleep(100);
-        WebElement language;
-        if (!isCn) {
-            System.out.println("选择语言:日文");
-            language = driver.findElement(By.xpath(JAPANESE_CARD));
-        } else {
-            System.out.println("选择语言:中文");
-            language = driver.findElement(By.xpath(CHINESE_CARD));
-        }
-        language.click();
-        Thread.sleep(100);
+    public static void getImageByCardName(String name) throws InterruptedException {
+        driver.navigate().refresh();
+        Thread.sleep(2000);
         WebElement cardName = driver.findElement(By.xpath(CARD_NAME_XPATH));
         cardName.clear();
-        cardName.sendKeys(keyword);
-        System.out.println("输入卡名：" + keyword);
-        //输入卡名
-        Thread.sleep(5000);
+        cardName.sendKeys(name);
+        System.out.println("输入卡名：" + name);
+        //输入卡密
         WebElement cardClick = driver.findElement(By.xpath(CARD_CLICK_XPATH));
         cardClick.click();
         System.out.println("点击卡片");
@@ -70,6 +60,29 @@ public class SeleniumUtil {
         downloadButton.click();
         System.out.println("下载");
         Thread.sleep(10000);
+    }
+
+    public static String getImageByCardCode(String code) throws InterruptedException {
+        driver.navigate().refresh();
+        Thread.sleep(2000);
+        //输入卡密
+        System.out.println("输入卡片代码:" + code);
+        WebElement cardCode = driver.findElement(By.xpath(CARD_CODE));
+        cardCode.clear();
+        cardCode.sendKeys(code);
+        System.out.println("点击卡片");
+        WebElement cardCodeConfirm = driver.findElement(By.xpath(CARD_CODE_CONFIRM));
+        cardCodeConfirm.click();
+        //点击卡片,等待加载
+        Thread.sleep(10000);
+        System.out.println("准备下载...");
+        WebElement downloadButton = driver.findElement(By.xpath(DOWNLOAD_BUTTON));
+        downloadButton.click();
+        System.out.println("下载");
+        Thread.sleep(10000);
+        WebElement cardName=driver.findElement(By.xpath("/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[2]/div[2]/div/div/div/input"));
+        System.out.println("卡名："+cardName.getAttribute("value"));
+        return cardName.getAttribute("value");
     }
 
     public static void after() {

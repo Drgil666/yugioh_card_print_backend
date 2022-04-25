@@ -51,6 +51,15 @@ public interface CardMapper {
      * @param cardCode 卡片密码
      * @return 卡片信息
      */
-    @Select("select * from card where code=#{code}")
+    @Select("select * from card where code=#{code} limit 1")
     Card getCardByCode(@Param("code") Integer cardCode);
+
+    /**
+     * 根据卡片名获取卡片
+     *
+     * @param name 卡片名
+     * @return 卡片信息
+     */
+    @Select("select * from card where nwbbs_name=#{name} limit 1")
+    Card getCardByNwbbsName(@Param("name") String name);
 }

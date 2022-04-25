@@ -40,4 +40,10 @@ public interface CardService {
      */
     Card getCardByCode(Integer cardCode);
 
+    /**
+     * 根据卡片名获取卡片
+     * @param name 卡片名
+     * @return 卡片信息
+     */
+    Card getCardByNwbbsName(String name);
 }

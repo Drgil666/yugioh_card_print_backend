@@ -60,4 +60,15 @@ public class CardServiceImpl implements CardService {
     public Card getCardByCode(Integer cardCode) {
         return cardMapper.getCardByCode(cardCode);
     }
+
+    /**
+     * 根据卡片名获取卡片
+     *
+     * @param name 卡片名
+     * @return 卡片信息
+     */
+    @Override
+    public Card getCardByNwbbsName(String name) {
+        return cardMapper.getCardByNwbbsName(name);
+    }
 }
