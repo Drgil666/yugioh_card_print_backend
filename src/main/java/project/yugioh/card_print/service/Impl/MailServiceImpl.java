@@ -40,7 +40,7 @@ public class MailServiceImpl implements MailService {
         helper.setFrom(userName);
         helper.setTo(email);
         helper.setSentDate(new Date());
-        helper.setText("感谢您使用红龙打印机！\r\n如有缺印漏印或bug反馈等现象，请联系作者邮箱：2574105038@qq.com.\r\n    By DrGilbert");
+        helper.setText("感谢您使用红龙打印机！\r\n如有缺印漏印卡图缺失或bug反馈等，请联系作者邮箱：2574105038@qq.com.\r\n感谢您的支持!\r\n    By DrGilbert");
         // 第一个参数是自定义的名称，后缀需要加上，第二个参数是文件的位置
         helper.addAttachment(exportName, file);
         javaMailSender.send(mimeMessage);

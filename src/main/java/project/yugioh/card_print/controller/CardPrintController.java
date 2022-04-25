@@ -19,6 +19,7 @@ import project.yugioh.card_print.util.PdfUtil;
 import project.yugioh.card_print.util.SeleniumUtil;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.ArrayList;
@@ -47,6 +48,8 @@ public class CardPrintController {
     private String exportPath;
     @Value("${export.name}")
     private String exportFileName;
+    @Value("${export.pdf.name}")
+    private String exportPdfName;
     @Value("${ydk.suffix}")
     private String ydkSuffix;
     @Resource
@@ -57,7 +60,8 @@ public class CardPrintController {
     @ResponseBody
     @PostMapping("/upload")
     public void uploadFile(@RequestParam(value = "file")
-                                   MultipartFile multipartFile) throws IOException, InterruptedException, IllegalArgumentException {
+                                   MultipartFile multipartFile,
+                           @RequestParam(value = "email") String mailAddress) throws IOException, InterruptedException, IllegalArgumentException, MessagingException {
         if (multipartFile.getOriginalFilename().endsWith(ydkSuffix)) {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(multipartFile.getInputStream()));
             String lineTxt;
@@ -70,10 +74,10 @@ public class CardPrintController {
                     if (card == null) {
                         log.debug("出现未知卡片！卡片密码：" + cardCode);
                         if (!new File(cardPath, cardCode + ".png").exists()) {
-                            String cardName=SeleniumUtil.getImageByCardCode(cardCode.toString());
-                            card=cardService.getCardByNwbbsName(cardName);
-                            if(card!=null){
-                                log.debug("出现数据库卡片信息:"+cardName);
+                            String cardName = SeleniumUtil.getImageByCardCode(cardCode.toString());
+                            card = cardService.getCardByNwbbsName(cardName);
+                            if (card != null) {
+                                log.debug("出现数据库卡片信息:" + cardName);
                             }
                             card.setCode(cardCode);
                             card.setImg(null);
@@ -127,13 +131,15 @@ public class CardPrintController {
             log.debug("正在生成文档...");
             XWPFTemplate template = cardPrintService.createExport(imageList);
             log.debug("生成文档成功！");
-            OutputStream stream = new FileOutputStream(filePath + "/" + exportFileName);
+            OutputStream stream = new FileOutputStream(new File(filePath,exportFileName));
             template.writeAndClose(stream);
             stream.close();
-//            log.debug("准备发送邮件...");
-//            Thread.sleep(5000);
-//            mailService.sendMail(new File(filePath, exportFileName), email);
-//            log.debug("发送成功!");
+            log.debug("转换成PDF中...");
+            PdfUtil.convertToPdf();
+            log.debug("准备发送邮件...");
+            Thread.sleep(2000);
+            mailService.sendMail(new File(filePath, exportPdfName), mailAddress);
+            log.debug("发送成功!");
         }
     }
 
@@ -161,8 +167,6 @@ public class CardPrintController {
         bufferedOutputStream.flush();
         out.flush();
         PoitlIOUtils.closeQuietlyMulti(template, bufferedOutputStream, out);
-        log.debug("转换成PDF中...");
-        PdfUtil.convertToPdf();
         log.debug("总文件个数:" + arr.length);
         log.debug("文件个数:" + cardFileList.size());
     }
