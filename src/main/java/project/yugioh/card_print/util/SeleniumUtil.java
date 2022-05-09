@@ -82,6 +82,7 @@ public class SeleniumUtil {
         Thread.sleep(10000);
         WebElement cardName=driver.findElement(By.xpath("/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[2]/div[2]/div/div/div/input"));
         System.out.println("卡名："+cardName.getAttribute("value"));
+        Thread.sleep(5000);
         return cardName.getAttribute("value");
     }
 

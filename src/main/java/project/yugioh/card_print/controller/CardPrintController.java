@@ -91,7 +91,7 @@ public class CardPrintController {
                             card.setImg(mongoId);
                             cardService.updateCard(card.getId(), mongoId);
                         }
-                        imageList.add(card.getCode() + ".png");
+                        imageList.add(cardCode + ".png");
                         continue;
                     }
                     GridFsResource gridFsServiceFile = gridFsService.getFile(card.getImg());
