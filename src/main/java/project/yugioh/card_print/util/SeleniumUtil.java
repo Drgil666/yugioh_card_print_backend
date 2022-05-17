@@ -1,6 +1,7 @@
 package project.yugioh.card_print.util;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -21,7 +22,7 @@ public class SeleniumUtil {
     public static final String CARD_LANGUAGE = "/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[1]/div[2]/div/div/div/input";
     public static final String JAPANESE_CARD = "/html/body/div[2]/div[1]/div/div/div[1]/ul/li[3]";
     public static final String CHINESE_CARD = "/html/body/div[2]/div[1]/div/div/div[1]/ul/li[1]";
-    public static ChromeDriver driver;
+    public static WebDriver driver;
     public static final String CARD_CODE = "/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[15]/div[2]/div/div[1]/div/input";
     public static final String CARD_CODE_CONFIRM = "/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[15]/div[2]/div/div[2]/div/button[1]";
     public static String downloadPath = "D:\\card_print_test\\card";
@@ -34,7 +35,9 @@ public class SeleniumUtil {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         System.setProperty("webdriver.chrome.driver", "C:/Users/25741/Desktop/chromedriver.exe");
+//        System.setProperty("webdriver.edge.driver", "C:/Users/25741/Desktop/msedgedriver.exe");
         driver = new ChromeDriver(desiredCapabilities);
+//        driver=new EdgeDriver(desiredCapabilities);
         //driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(URL);

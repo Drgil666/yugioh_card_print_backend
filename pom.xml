@@ -162,6 +162,22 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.6</version>
         </dependency>
+        <!--word转pdf-->
+        <dependency>
+            <groupId>com.documents4j</groupId>
+            <artifactId>documents4j-api</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.documents4j</groupId>
+            <artifactId>documents4j-local</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.documents4j</groupId>
+            <artifactId>documents4j-transformer-msoffice-word</artifactId>
+            <version>1.1.7</version>
+        </dependency>
         <!--        TODO:引入本地依赖实现pdf转换，需要在服务器上尝试部署。-->
     </dependencies>
 
