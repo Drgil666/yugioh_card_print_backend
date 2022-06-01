@@ -178,7 +178,6 @@
             <artifactId>documents4j-transformer-msoffice-word</artifactId>
             <version>1.1.7</version>
         </dependency>
-        <!--        TODO:引入本地依赖实现pdf转换，需要在服务器上尝试部署。-->
     </dependencies>
 
     <build>

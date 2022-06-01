@@ -28,20 +28,22 @@ public class SeleniumUtil {
     public static String downloadPath = "D:\\card_print_test\\card";
 
     public static void pre() throws InterruptedException {
+        preChrome();
+    }
+
+    private static void preChrome() throws InterruptedException {
         HashMap<String, Object> hashMap = new HashMap<>(10);
         hashMap.put("download.default_directory", downloadPath);
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setExperimentalOption("prefs", hashMap);
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-        System.setProperty("webdriver.chrome.driver", "C:/Users/25741/Desktop/chromedriver.exe");
-//        System.setProperty("webdriver.edge.driver", "C:/Users/25741/Desktop/msedgedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:/Users/25741/Desktop/ygo_card_print/chrome/Application/chromedriver.exe");
         driver = new ChromeDriver(desiredCapabilities);
-//        driver=new EdgeDriver(desiredCapabilities);
         //driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(URL);
-        System.out.println("初始化完成!");
+        System.out.println("Chrome初始化完成!");
         Thread.sleep(3000);
     }
 
@@ -83,8 +85,8 @@ public class SeleniumUtil {
         downloadButton.click();
         System.out.println("下载");
         Thread.sleep(10000);
-        WebElement cardName=driver.findElement(By.xpath("/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[2]/div[2]/div/div/div/input"));
-        System.out.println("卡名："+cardName.getAttribute("value"));
+        WebElement cardName = driver.findElement(By.xpath("/html/body/div[1]/div/section/main/div/div/div[2]/div/div[1]/div/div/div[2]/form/div[2]/div[2]/div/div/div/input"));
+        System.out.println("卡名：" + cardName.getAttribute("value"));
         Thread.sleep(5000);
         return cardName.getAttribute("value");
     }
