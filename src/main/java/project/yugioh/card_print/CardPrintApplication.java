@@ -11,6 +11,6 @@ import project.yugioh.card_print.util.SeleniumUtil;
 public class CardPrintApplication {
     public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(CardPrintApplication.class, args);
-        SeleniumUtil.pre();
+//        SeleniumUtil.pre();
     }
 }

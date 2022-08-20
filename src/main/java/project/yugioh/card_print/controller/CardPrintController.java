@@ -170,4 +170,18 @@ public class CardPrintController {
         log.debug("总文件个数:" + arr.length);
         log.debug("文件个数:" + cardFileList.size());
     }
+
+    @ResponseBody
+    @GetMapping("/card/name/ydk")
+    public String getCardNameByCardCode(@RequestParam(value = "cardCode")
+                                             Integer cardCode){
+       String cardName=cardService.getCardByCode(cardCode).getNwbbsName();
+       return cardName;
+    }
+    @ResponseBody
+    @GetMapping("/test")
+    public String getCardNameByCardCode(){
+        return "ok";
+    }
+
 }

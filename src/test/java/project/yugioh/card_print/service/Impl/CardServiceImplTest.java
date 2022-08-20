@@ -34,9 +34,7 @@ public class CardServiceImplTest {
 
     @Test
     public void createCard() {
-         File file = new File("C:/Users/25741/Desktop/cards.json");
-        // File file = new File("Y:/Users/DrGilbert/Desktop/cards.json");
-        //File file = new File("../java/project/yugioh/card_print/cardData/cards.json");
+        File file = new File("Y:/Users/DrGilbert/Desktop/cards.json");
         StringBuilder stringBuilder = new StringBuilder();
         int cnt = 0;
         try {
@@ -58,11 +56,12 @@ public class CardServiceImplTest {
         for (HashMap.Entry<String, CardDb> entry : cardList.entrySet()) {
             CardDb cardDb = entry.getValue();
             //System.out.println(entry.getKey());
-            Card card= CardTransformUtil.cardTransform(cardDb);
+            Card card = CardTransformUtil.cardTransform(cardDb);
             cardService.createCard(card);
         }
         System.out.println("读取完成!" + cardList.size());
     }
+
     @Test
     public void downloadCard() throws InterruptedException {
         SeleniumUtil.pre();
@@ -70,6 +69,7 @@ public class CardServiceImplTest {
         SeleniumUtil.getImageByCardCode("89631146");
         SeleniumUtil.after();
     }
+
     @Test
     public void convertToPdf() throws IOException {
         PdfUtil.convertToPdf();
