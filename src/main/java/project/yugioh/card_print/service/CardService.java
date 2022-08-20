@@ -16,13 +16,19 @@ public interface CardService {
     Boolean createCard(Card card);
 
     /**
+     * 更新卡片
+     * @param card 要更新的卡片
+     * @return 影响行数
+     */
+    Long updateCard(Card card);
+    /**
      * 更新卡片图源
      *
      * @param cardId  卡片id
      * @param mongoId 卡图mongoId
      * @return 影响行数
      */
-    Long updateCard(Integer cardId, String mongoId);
+    Long updateCardMongoId(Integer cardId, String mongoId);
 
     /**
      * 根据卡片id获取卡片

@@ -33,13 +33,13 @@ public class CardServiceImplTest {
     private CardService cardService;
 
     @Test
-    public void createCard() {
+    public void ImportCard() {
         File file = new File("Y:/Users/DrGilbert/Desktop/cards.json");
         StringBuilder stringBuilder = new StringBuilder();
         int cnt = 0;
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            String s = null;
+            String s;
             while ((s = bufferedReader.readLine()) != null) {
                 stringBuilder.append(System.lineSeparator()).append(s);
                 cnt++;
@@ -57,9 +57,39 @@ public class CardServiceImplTest {
             CardDb cardDb = entry.getValue();
             //System.out.println(entry.getKey());
             Card card = CardTransformUtil.cardTransform(cardDb);
-            cardService.createCard(card);
+            if (cardService.getCardByCode(card.getCode()) == null) {
+                cardService.createCard(card);
+            } else {
+                cardService.updateCard(card);
+            }
         }
         System.out.println("读取完成!" + cardList.size());
+    }
+
+    @Test
+    public void anotherImportCard() {
+        CardDb cardDb = new CardDb();
+        cardDb.setCnocg_n("召唤神 艾克佐迪亚");
+        cardDb.setId(58604027);
+        cardDb.setCn_name("召唤神 艾库佐迪亚");
+        cardDb.setJp_ruby("しょうかんしんエクゾディア");
+        cardDb.setJp_name("召喚神エクゾディア");
+        cardDb.setEn_name("The Legendary Exodia Incarnate");
+        CardDb.CardText text = new CardDb.CardText();
+        text.setDesc("①：支付1000基本分才能发动。对方场上盖放的卡全部确认。");
+        text.setTypes("[魔法]");
+        cardDb.setText(text);
+        CardDb.CardData data = new CardDb.CardData();
+        data.setAtk(0);
+        data.setAttribute(0);
+        data.setRace(0);
+        data.setDef(0);
+        data.setLevel(0);
+        data.setSetcode(0L);
+        data.setOt(3);
+        cardDb.setData(data);
+        Card card = CardTransformUtil.cardTransform(cardDb);
+        System.out.println(card);
     }
 
     @Test

@@ -1,12 +1,14 @@
 package project.yugioh.card_print.pojo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author Gilbert
  * @date 2022/3/19 14:46
  */
 @Data
+@EqualsAndHashCode
 public class Card {
     /**
      * 卡片id
@@ -29,9 +31,9 @@ public class Card {
      */
     private String enName;
     /**
-     * 日文注音
+     * 日文平假名
      */
-    private String jpCode;
+    private String jpRuby;
     /**
      * 日文译名
      */
@@ -96,4 +98,5 @@ public class Card {
      * 连接箭头
      */
     private String linkMark;
+
 }

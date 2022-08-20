@@ -28,6 +28,17 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
+     * 更新卡片
+     *
+     * @param card 要更新的卡片
+     * @return 影响行数
+     */
+    @Override
+    public Long updateCard(Card card) {
+        return cardMapper.updateCard(card);
+    }
+
+    /**
      * 更新卡片图源
      *
      * @param cardId  卡片id
@@ -35,8 +46,8 @@ public class CardServiceImpl implements CardService {
      * @return 影响行数
      */
     @Override
-    public Long updateCard(Integer cardId, String mongoId) {
-        return cardMapper.updateCard(cardId, mongoId);
+    public Long updateCardMongoId(Integer cardId, String mongoId) {
+        return cardMapper.updateCardMongoId(cardId, mongoId);
     }
 
     /**

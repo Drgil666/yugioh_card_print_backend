@@ -89,7 +89,7 @@ public class CardPrintController {
                                     ContentType.IMAGE_PNG.toString(), inputStream);
                             String mongoId = gridFsService.createFile(multipartFile1);
                             card.setImg(mongoId);
-                            cardService.updateCard(card.getId(), mongoId);
+                            cardService.updateCardMongoId(card.getId(), mongoId);
                         }
                         imageList.add(cardCode + ".png");
                         continue;
@@ -106,7 +106,7 @@ public class CardPrintController {
                                 ContentType.IMAGE_PNG.toString(), inputStream);
                         String mongoId = gridFsService.createFile(multipartFile1);
                         card.setImg(mongoId);
-                        cardService.updateCard(card.getId(), mongoId);
+                        cardService.updateCardMongoId(card.getId(), mongoId);
                     } else {
                         File file = new File(cardPath, card.getCode() + ".png");
                         if (!file.exists()) {
@@ -114,7 +114,7 @@ public class CardPrintController {
                             InputStream inputStream = gridFsServiceFile.getInputStream();
                             FileOutputStream fileOutputStream = new FileOutputStream(file);
                             byte[] buffer = new byte[1024];
-                            int len = 0;
+                            int len ;
                             while ((len = inputStream.read(buffer)) != -1) {
                                 fileOutputStream.write(buffer, 0, len);
                             }
