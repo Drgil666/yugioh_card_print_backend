@@ -49,9 +49,11 @@ public class CardInfoUtil {
     private static final String DIVINE_BEAST_ATTRIBUTE = "幻神兽";
     private static final String DRAGON_ATTRIBUTE = "龙";
     private static final String FAIRY_ATTRIBUTE = "天使";
+    private static final String FIEND_ATTRIBUTE = "恶魔";
     private static final String FISH_ATTRIBUTE = "鱼";
     private static final String INSECT_ATTRIBUTE = "昆虫";
     private static final String MACHINE_ATTRIBUTE = "机械";
+    private static final String PLANT_ATTRIBUTE = "植物";
     private static final String PSYCHIC_ATTRIBUTE = "念动力";
     private static final String PYRO_ATTRIBUTE = "炎";
     private static final String REPTILE_ATTRIBUTE = "爬虫";
@@ -238,61 +240,69 @@ public class CardInfoUtil {
          */
         TYPE_FAIRY(9, FAIRY_ATTRIBUTE),
         /**
+         * 恶魔族
+         */
+        TYPE_FIEND(10, FIEND_ATTRIBUTE),
+        /**
          * 鱼族
          */
-        TYPE_FISH(10, FISH_ATTRIBUTE),
+        TYPE_FISH(11, FISH_ATTRIBUTE),
         /**
          * 昆虫族
          */
-        TYPE_INSECT(11, INSECT_ATTRIBUTE),
+        TYPE_INSECT(12, INSECT_ATTRIBUTE),
         /**
          * 机械族
          */
-        TYPE_MACHINE(12, MACHINE_ATTRIBUTE),
+        TYPE_MACHINE(13, MACHINE_ATTRIBUTE),
+        /**
+         * 植物族
+         */
+        TYPE_PLANT(14, PLANT_ATTRIBUTE),
         /**
          * 念动力族
          */
-        TYPE_PSYCHIC(13, PSYCHIC_ATTRIBUTE),
+        TYPE_PSYCHIC(15, PSYCHIC_ATTRIBUTE),
         /**
          * 炎族
          */
-        TYPE_PYRO(14, PYRO_ATTRIBUTE),
+        TYPE_PYRO(16, PYRO_ATTRIBUTE),
         /**
          * 爬虫族
          */
-        TYPE_REPTILE(15, REPTILE_ATTRIBUTE),
+        TYPE_REPTILE(17, REPTILE_ATTRIBUTE),
         /**
          * 岩石族
          */
-        TYPE_ROCK(16, ROCK_ATTRIBUTE),
+        TYPE_ROCK(18, ROCK_ATTRIBUTE),
         /**
          * 海龙族
          */
-        TYPE_SEA_SERPENT(17, SEA_SERPENT_ATTRIBUTE),
+        TYPE_SEA_SERPENT(19, SEA_SERPENT_ATTRIBUTE),
         /**
          * 魔法师族
          */
-        TYPE_SPELL_CASTER(18, SPELL_CASTER_ATTRIBUTE),
+        TYPE_SPELL_CASTER(20, SPELL_CASTER_ATTRIBUTE),
         /**
          * 雷族
          */
-        TYPE_THUNDER(19, THUNDER_ATTRIBUTE),
+        TYPE_THUNDER(21, THUNDER_ATTRIBUTE),
         /**
          * 战士族
          */
-        TYPE_WARRIOR(20, WARRIOR_ATTRIBUTE),
+        TYPE_WARRIOR(22, WARRIOR_ATTRIBUTE),
         /**
          * 鸟兽族
          */
-        TYPE_WINGED_BEAST(21, WINGED_BEAST_ATTRIBUTE),
+        TYPE_WINGED_BEAST(23, WINGED_BEAST_ATTRIBUTE),
         /**
          * 幻龙族
          */
-        TYPE_WYRM(22, WYRM_ATTRIBUTE),
+        TYPE_WYRM(24, WYRM_ATTRIBUTE),
         /**
          * 不死族
          */
-        TYPE_ZOMBIE(23, ZOMBIE_ATTRIBUTE);
+        TYPE_ZOMBIE(25, ZOMBIE_ATTRIBUTE);
         private final int code;
         private final String name;
     }
